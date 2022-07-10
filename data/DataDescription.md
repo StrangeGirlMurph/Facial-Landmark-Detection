@@ -11,4 +11,3 @@ The input image is given in the last field of the data files, and consists of a 
 **Data files**
 + training.csv: list of training 7049 images. Each row contains the (x,y) coordinates for 15 keypoints, and image data as row-ordered list of pixels.
 + test.csv: list of 1783 test images. Each row contains ImageId and image data as row-ordered list of pixels
-+ submissionFileFormat.csv: list of 27124 keypoints to predict. Each row contains a RowId, ImageId, FeatureName, Location. FeatureName are "left_eye_center_x," "right_eyebrow_outer_end_y," etc. Location is what you need to predict. 
