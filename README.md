@@ -15,8 +15,7 @@ _Disclaimer: The repository is pretty huge. Git LFS is therefore used. I would r
 ## Ideas
 +
 ## Notes
-+ Changing the tensorflow log-level: `$Env:TF_CPP_MIN_LOG_LEVEL = "3"` (powershell)
++ Changing the tensorflow log-level permanently: `[System.Environment]::SetEnvironmentVariable('TF_CPP_MIN_LOG_LEVEL','3')` (powershell)
 
 # Usage
-To run everything execute the `test.py` file.  
-To seriously train the model change the parameters in `train.py`. For now they are really low to make debugging easier.
+To run everything execute the `main.py` file.
