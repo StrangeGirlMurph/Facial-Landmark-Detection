@@ -11,12 +11,10 @@ def loadData():
 
     print("\n> Loading the data...")
     # -- loading data --
-    Train_Dir = '../data/training/training.csv'
-    Test_Dir = '../data/test/test.csv'
-    lookid_dir = '../data/IdLookupTable.csv'
+    Train_Dir = '../data/trainingData.csv'
+    Test_Dir = '../data/testData.csv'
     train_data = pd.read_csv(Train_Dir)
     test_data = pd.read_csv(Test_Dir)
-    lookid_data = pd.read_csv(lookid_dir)
     os.listdir('../data')
 
     # print(train_data.head().T)
@@ -48,7 +46,7 @@ def loadData():
     plt.show()
 
     # - preparing test data -
-    timages = train_data['Image'].str.split(" ")
+    timages = test_data['Image'].str.split(" ")
     X_test = np.array(timages.to_list(), dtype="float").reshape(-1, 96, 96, 1)
 
     return X_train, y_train, X_test
