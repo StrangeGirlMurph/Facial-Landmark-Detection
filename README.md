@@ -15,6 +15,8 @@ _Disclaimer: The repository is pretty damn huge. Git LFS is therefore used. I wo
 ## Ideas
 +
 ## Notes
-+ [Inspiration](https://www.kaggle.com/code/karanjakhar/facial-keypoint-detection)
++ Changing the tensorflow log-level: `$Env:TF_CPP_MIN_LOG_LEVEL = "3"` (powershell)
 
 # Usage
+To run everything execute the `test.py` file.  
+To seriously train the model change the parameters in `train.py`. For now they are just really low to make debugging easier.
