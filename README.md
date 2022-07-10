@@ -1,7 +1,7 @@
 # Deep Learning - Facial Landmark Detection
 A deep learning model to detect facial landmarks from images/videos.
 
-_Disclaimer: The repository is pretty damn huge. Git LFS is therefore used. I would recommend cloning it in uni. (The repo includes the dataset)_
+_Disclaimer: The repository is pretty huge. Git LFS is therefore used. I would recommend cloning it in uni if you're using a laptop. (The repo includes the dataset)_
 
 + [Overleaf Project](https://www.overleaf.com/8268422246bjnxsrvsbqxn) for the report
 + [Demo](https://colab.research.google.com/github/StrangeGirlMurph/DeepLearning-FacialLandmarkDetection/blob/master/demo.ipynb) on colab
