@@ -19,4 +19,4 @@ _Disclaimer: The repository is pretty huge. Git LFS is therefore used. I would r
 
 # Usage
 To run everything execute the `test.py` file.  
-To seriously train the model change the parameters in `train.py`. For now they are just really low to make debugging easier.
+To seriously train the model change the parameters in `train.py`. For now they are really low to make debugging easier.
