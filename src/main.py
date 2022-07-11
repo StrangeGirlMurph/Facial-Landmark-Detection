@@ -9,9 +9,9 @@ model = defineModel()
 trainModel(
     model, X_train, y_train,
     epochs=1,
-    batch_size=64,
+    batch_size=128,
     validation_split=0.2,
-    save=(True, "model1")
+    save=(True, "modelV1")
 )
 
 testModel(model, X_test)

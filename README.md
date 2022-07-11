@@ -1,7 +1,7 @@
 # Deep Learning - Facial Landmark Detection
 A deep learning model to detect facial landmarks from images/videos.
 
-_Disclaimer: The repository is pretty huge. Git LFS is therefore used. I would recommend cloning it in uni if you're using a laptop. (The repo includes the dataset)_
+_Disclaimer: Git LFS is used for this repository! The repo contains the dataset. I recommend cloning it in uni if you're using a laptop (check [Usage](#usage))._
 
 + [Overleaf Project](https://www.overleaf.com/8268422246bjnxsrvsbqxn) for the report
 + [Demo](https://colab.research.google.com/github/StrangeGirlMurph/DeepLearning-FacialLandmarkDetection/blob/master/demo.ipynb) on colab
@@ -11,14 +11,17 @@ _Disclaimer: The repository is pretty huge. Git LFS is therefore used. I would r
 
 # Working-Area
 ## Questions
-+ 
++ Do we really have to name the files 
+
 ## Ideas
-+
++ Simulate rotation of face.
+
 ## Notes
-+ Changing the tensorflow log-level for  
-  + that terminal: `$Env:TF_CPP_MIN_LOG_LEVEL = "3"`
-  + permanent: `Add-Content -Path $Profile.CurrentUserAllHosts -Value '$Env:TF_CPP_MIN_LOG_LEVEL = "3"'`
++ The test dataset doesn't include labels for the data.
++ Changing the tensorflow log-level (powershell)
+  + for that terminal: `$Env:TF_CPP_MIN_LOG_LEVEL = "3"`
+  + permanently: `Add-Content -Path $Profile.CurrentUserAllHosts -Value '$Env:TF_CPP_MIN_LOG_LEVEL = "3"'`
 
 # Usage
 Install Git LFS with `git lfs install`. Clone/pull with `git lfs clone/pull`.  
-To run everything execute the `main.py` file.
+To run execute the `main.py` file.
