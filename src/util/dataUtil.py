@@ -7,10 +7,8 @@ def processRawData():
     print("\n> Processing the raw data...")
 
     # -- read data from csv --
-    TrainPath = '../data/trainingData.csv'
-    TestPath = '../data/testData.csv'
-    trainData = pd.read_csv(TrainPath)
-    testData = pd.read_csv(TestPath)
+    trainData = pd.read_csv('../../data/rawData/trainingData.csv')
+    testData = pd.read_csv('../../data/rawData/testData.csv')
 
     # -- preprocessing --
     # - missing values -
@@ -28,15 +26,21 @@ def processRawData():
     print("- Bringing data into shape...")
     # - prepare training features -
     images = trainData['Image'].str.split(" ")
-    X_train = np.array(images.to_list(), dtype="float").reshape(-1, 96, 96, 1)
+    X_train = np.array(images.to_list(), dtype=np.uint8).reshape(-1, 96, 96, 1)
 
     # - prepare training labels -
-    y_train = trainData.drop('Image', axis=1).to_numpy(dtype="float")
+    y_train = trainData.drop('Image', axis=1).to_numpy(dtype=np.float32)
 
     # - preparing test data -
     tImages = testData['Image'].str.split(" ")
-    X_test = np.array(tImages.to_list(), dtype="float").reshape(-1, 96, 96, 1)
+    X_test = np.array(tImages.to_list(), dtype=np.uint8).reshape(-1, 96, 96, 1)
 
     print("- Storing the data as numpy files...")
+    np.save('../../data/processedData/X_train.npy', X_train)
+    np.save('../../data/processedData/y_train.npy', y_train)
+    np.save('../../data/processedData/X_test.npy', X_test)
 
     print("- Done!")
+
+
+# processRawData()
