@@ -2,14 +2,13 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
 import os
+from util.imageUtil import showImage
 
 
 def loadData():
-    """
-    Loads the data and returns the training feautures/labels and test images.
-    """
-
+    """ Loads the data and returns the training feautures/labels and test images. """
     print("\n> Loading the data...")
+
     # -- loading data --
     Train_Dir = '../data/trainingData.csv'
     Test_Dir = '../data/testData.csv'
@@ -40,13 +39,10 @@ def loadData():
     # - prepare labels -
     y_train = train_data.drop('Image', axis=1).to_numpy(dtype="float")
 
-    # example image with keypoints
-    plt.imshow(X_train[30].reshape(96, 96), cmap='gray')
-    plt.scatter(y_train[30][0::2], y_train[33][1::2], c='b', marker='.')
-    plt.show()
-
     # - preparing test data -
     timages = test_data['Image'].str.split(" ")
     X_test = np.array(timages.to_list(), dtype="float").reshape(-1, 96, 96, 1)
+
+    showImage(X_train[30], y_train[30])
 
     return X_train, y_train, X_test

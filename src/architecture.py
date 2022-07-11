@@ -4,10 +4,7 @@ from keras.layers.advanced_activations import LeakyReLU
 
 
 def defineModel():
-    """ 
-    Defines the model.
-    """
-
+    """ Creates a sequetial model, defines it's architecture and returns it. """
     print("\n> Defining the model...")
 
     # - fully connected neural network -
