@@ -1,6 +1,7 @@
 def trainModel(model, X_train, y_train, epochs=50, batch_size=256, validation_split=0.2, save=(True, "model1")):
     """ Compiles and fits the model inplace and saves it if specified under the given name. """
     print("\n> Training the model...")
+    print(f"> Epochs: {epochs}, Batch size: {batch_size}, Validation split: {validation_split}")
 
     model.compile(
         optimizer='adam',           # stochastic gradient descent
@@ -18,4 +19,4 @@ def trainModel(model, X_train, y_train, epochs=50, batch_size=256, validation_sp
 
     if save[0]:
         print("- Saving the model...")
-        model.save("../models/" + save[1])
+        model.save("../models/" + save[1], save_format="h5")
