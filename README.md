@@ -20,4 +20,5 @@ _Disclaimer: The repository is pretty huge. Git LFS is therefore used. I would r
   + permanent: `Add-Content -Path $Profile.CurrentUserAllHosts -Value '$Env:TF_CPP_MIN_LOG_LEVEL = "3"'`
 
 # Usage
+Install Git LFS with `git lfs install`. Clone/pull with `git lfs clone/pull`.  
 To run everything execute the `main.py` file.
