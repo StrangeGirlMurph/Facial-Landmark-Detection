@@ -11,10 +11,10 @@ _Disclaimer: Git LFS is used for this repository! The repo contains the dataset.
 
 # Working-Area
 ## Questions
-+ Do we really have to name the files 
++ Do we really have to name the files according to the notes on the slides?
 
 ## Ideas
-+ Simulate rotation of face.
++ Simulate the rotation of the faces.
 
 ## Notes
 + The test dataset doesn't include labels for the data.
