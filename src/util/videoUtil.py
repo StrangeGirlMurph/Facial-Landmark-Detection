@@ -1,5 +1,4 @@
 import cv2 as cv
-from soupsieve import select
 
 
 def testOnVideo(videoPath, model):
@@ -8,7 +7,7 @@ def testOnVideo(videoPath, model):
     while(cap.isOpened()):
         ret, frame = cap.read()
         if ret == True:
-            cv.imshow('frame', frame)
+            cv.imshow('Video-Feed', frame)
             if cv.waitKey(1) & 0xFF == ord('q'):
                 break
         else:
@@ -23,10 +22,11 @@ def testOnWebcamInput():
 
     cap = cv.VideoCapture(port)
 
+    print("- Close the window with pressing 'q'")
     while(cap.isOpened()):
         ret, frame = cap.read()
         if ret == True:
-            cv.imshow('frame', frame)
+            cv.imshow("Webcam-Feed", squareImage(cv.flip(frame, 1)))
             if cv.waitKey(1) & 0xFF == ord('q'):
                 break
         else:
@@ -57,8 +57,12 @@ def listPorts():
 
 
 def selectPort():
+    ports = listPorts()
+    if not ports:
+        return 0
+
     print("Available ports (width, height):")
-    for port, size in listPorts().items():
+    for port, size in ports.items():
         print(port, size)
 
     try:
@@ -68,6 +72,17 @@ def selectPort():
         return selectPort()
 
     return port
+
+
+def squareImage(img):
+    """
+    Squares the image.
+    """
+    h, w = img.shape[:2]
+    size = min(h, w)//2
+    h = h//2
+    w = w//2
+    return img[h-size:h+size, w-size:w+size]
 
 
 testOnWebcamInput()
