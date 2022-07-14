@@ -14,4 +14,4 @@ trainModel(
     save=(True, "modelV1")
 )
 
-testModel(model, X_test)
+testModel(model, X_test[30:33])
