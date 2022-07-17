@@ -1,3 +1,4 @@
+import keras
 from keras.models import Sequential
 from keras.layers import Convolution2D, BatchNormalization, Flatten, Dense, Dropout, MaxPool2D, LeakyReLU
 
@@ -77,9 +78,14 @@ def defineModel():
     model.add(Dropout(0.1))
     model.add(Dense(30))
 
-    # model.summary()
-
-    # creating a visualization of the model
-    # keras.utils.plot_model(model, to_file='../models/modelImage.png', show_shapes=True)
-
     return model
+
+
+def summarizeModel(model):
+    """Prints a summary of the model."""
+    model.summary()
+
+
+def visualizeModel(model, path='../models/modelImage.png'):
+    """Creates an image which summarizes the model and visualizes the layers."""
+    keras.utils.plot_model(model, to_file=path, show_shapes=True)

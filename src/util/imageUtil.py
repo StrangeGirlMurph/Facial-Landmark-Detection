@@ -9,8 +9,13 @@ def showImage(image, x, y, cmap="gray"):
     plt.show()
 
 
+def plotPointsOnImage(im, x, y):
+    """Plots the points given by the x and y coordinates on the image and returns it."""
+    pass
+
+
 def prepareImageForPrediction(im):
-    """Takes an image and returns it ready for prediction (performs: squaring, converting to grayscale, resizing)."""
+    """Takes an image and returns it ready for prediction (performs: squaring, converting to grayscale and resizing)."""
     return resizeImage(grayImage(squareImage(im)))
 
 
@@ -21,7 +26,7 @@ def grayImage(im):
 
 def resizeImage(im):
     """Resizes the image to 96x96 and returns it."""
-    return cv.resize(im, (96, 96, 1), interpolation=cv.INTER_AREA)
+    return cv.resize(im, (96, 96), interpolation=cv.INTER_AREA)
 
 
 def mirrorImage(img):

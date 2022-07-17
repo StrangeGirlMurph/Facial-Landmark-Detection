@@ -2,15 +2,15 @@ import cv2 as cv
 
 
 def listAvailabePorts():
-    """ Test the ports and returns the available ports. """
-
+    """Test the first 10 ports and returns the available ports ones with their output size. """
     ports = {}
 
-    for i in range(10):  # checks the first 10 ports
+    for i in range(10):
+        # checks the first 10 ports (0-9)
         camera = cv.VideoCapture(i, cv.CAP_DSHOW)
 
         if camera.isOpened():
-            rv, img = camera.read()
+            rv, im = camera.read()
             w = camera.get(3)
             h = camera.get(4)
             if rv:
@@ -21,8 +21,8 @@ def listAvailabePorts():
 
 def selectPort():
     """Lets the user select a port and returns the port number."""
-
     ports = listAvailabePorts()
+
     if not ports:
         return 0
 

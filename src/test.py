@@ -1,3 +1,4 @@
+import matplotlib.pyplot as plt
 from util.imageUtil import *
 from util.videoUtil import *
 
@@ -11,25 +12,32 @@ def testOnDataset(model, data):
         showImage(im, x, y)
 
 
-def testOnVideo(model, videoPath=""):
+def testOnVideo(model=2, videoPath=""):
     """Tests the model on a video input. Either a path to a video or direct camera input."""
     print("\n> Testing the model on a video...")
 
     if not videoPath:
         port = selectPort()
+        isCameraInput = True
     else:
         port = videoPath
+        isCameraInput = False
 
     cap = cv.VideoCapture(port)
 
-    print("- Close the window with 'q'")
-    while(cap.isOpened()):
-        rv, frame = cap.read()
-        if rv == True:
-            im = prepareImageForPrediction(frame)
-            x, y = predictOnImage(model, im)
+    print("- You can close the window by pressing 'q'")
 
-            cv.imshow("Video-Feed", frame)
+    while(cap.isOpened()):
+        rv, frame = cap.read()  # BGR
+
+        if rv == True:
+            if isCameraInput:
+                frame = mirrorImage(frame)
+
+            im = prepareImageForPrediction(frame)
+            #x, y = predictOnImage(model, im)
+
+            plt.imshow(frame)
 
             if cv.waitKey(1) & 0xFF == ord('q'):
                 break
@@ -50,3 +58,6 @@ def predictOnImages(model, ims):
     """Predicts on multiple images and returns the list of coordinates of the predicted points."""
     pred = model.predict(ims)
     return ([i[0::2] for i in pred], [i[1::2] for i in pred])
+
+
+testOnVideo()
