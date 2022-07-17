@@ -17,5 +17,5 @@ model = loadModel("../models/modelV1")
 #     save=(True, "modelV1")
 # )
 
-# testOnDataset(model, X_test[30:33])
-testOnVideo(model)  # "../data/media/Can You Watch This Without Smiling.mp4"
+testOnDataset(model, X_test[30:50])
+# testOnVideo(model)  # "../data/media/Can You Watch This Without Smiling.mp4"

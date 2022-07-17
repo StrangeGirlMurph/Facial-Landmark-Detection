@@ -11,7 +11,11 @@ _Disclaimer: Git LFS is used for this repository! The repo contains the dataset.
 
 # Working-Area
 ## Questions
-+ Do we really have to name the files according to the names mentioned in the slides? 
++ Do we really have to name the files according to the names mentioned in the slides?
++ The dataset really isn't the best...
+  + 68% of the data is missing some key points
+  + The perspective is not really useful for input from a webcam or something
++ 
 
 ## Ideas
 + Simulate the rotation of the faces.
