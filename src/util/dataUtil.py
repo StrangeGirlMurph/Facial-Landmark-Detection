@@ -3,7 +3,7 @@ import numpy as np
 
 
 def processRawData():
-    """ Reads the data from the bare csv files, preprocesses the data and stores it in numpy files for faster access. (Preprocessing and reading from the csv files all the time is slow) """
+    """Reads the data from the bare csv files, preprocesses the data and stores it in numpy files for faster access. (Preprocessing and reading from the csv files all the time is slow)"""
     print("\n> Processing the raw data...")
 
     # -- read data from csv --
@@ -41,6 +41,5 @@ def processRawData():
     np.save('../../data/processedData/X_test.npy', X_test)
 
     print("- Done!")
-
 
 # processRawData()

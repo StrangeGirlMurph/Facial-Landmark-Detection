@@ -77,9 +77,4 @@ def defineModel():
     model.add(Dropout(0.1))
     model.add(Dense(30))
 
-    # model.summary()
-
-    # creating a visualization of the model
-    # keras.utils.plot_model(model, to_file='../models/modelImage.png', show_shapes=True)
-
     return model
