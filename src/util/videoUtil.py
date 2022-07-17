@@ -1,4 +1,6 @@
 import cv2 as cv
+from imageUtil import prepareImageForPrediction, mirrorImage
+import matplotlib.pyplot as plt
 
 
 def listAvailabePorts():
@@ -40,3 +42,47 @@ def selectPort():
         return selectPort()
 
     return port
+
+
+def showVideoFeed(videoPath="", showReadyForPred=False):
+    """Shows you the video input. Either a path to a video or direct camera input."""
+    print("\n> Testing the video feed...")
+
+    if not videoPath:
+        port = selectPort()
+        isCameraInput = True
+    else:
+        port = videoPath
+        isCameraInput = False
+
+    cap = cv.VideoCapture(port)
+    cv.namedWindow("Video-Feed")
+    cv.setWindowProperty('Video-Feed', 1, cv.WINDOW_NORMAL)
+
+    if showReadyForPred:
+        cv.resizeWindow("Video-Feed", 480, 480)
+
+    print("- You can close the window by pressing 'q'")
+
+    while(cap.isOpened()):
+        rv, frame = cap.read()  # BGR
+
+        if rv == True:
+            if isCameraInput:
+                frame = mirrorImage(frame)
+
+            if showReadyForPred:
+                frame = prepareImageForPrediction(frame)
+
+            cv.imshow("Video-Feed", frame)
+
+            if cv.waitKey(1) & 0xFF == ord('q'):
+                break
+        else:
+            break
+
+    cap.release()
+    cv.destroyAllWindows()
+
+
+showVideoFeed(showReadyForPred=True)

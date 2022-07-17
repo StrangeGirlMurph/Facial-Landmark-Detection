@@ -1,3 +1,6 @@
+import keras
+
+
 def predictOnImage(model, image):
     """Predicts on the input image and returns a list of x and y coordinates. """
     pred = model.predict(image)
@@ -6,5 +9,4 @@ def predictOnImage(model, image):
 
 def loadModel(modelPath):
     """ Loads the model from the given path."""
-
-    pass
+    return keras.models.load_model(modelPath)

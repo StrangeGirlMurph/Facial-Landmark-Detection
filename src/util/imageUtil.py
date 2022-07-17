@@ -11,7 +11,9 @@ def showImage(image, x, y, cmap="gray"):
 
 def plotPointsOnImage(im, x, y):
     """Plots the points given by the x and y coordinates on the image and returns it."""
-    pass
+    for i, j in zip(x, y):
+        cv.circle(im, (i, j), 1, (0, 0, 255), -1)
+    return im
 
 
 def prepareImageForPrediction(im):

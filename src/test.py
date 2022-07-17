@@ -35,9 +35,10 @@ def testOnVideo(model=2, videoPath=""):
                 frame = mirrorImage(frame)
 
             im = prepareImageForPrediction(frame)
-            #x, y = predictOnImage(model, im)
+            x, y = predictOnImage(model, im)
+            frame = plotPointsOnImage(frame, x, y)
 
-            plt.imshow(frame)
+            cv.imshow("Video-Feed", frame)
 
             if cv.waitKey(1) & 0xFF == ord('q'):
                 break
