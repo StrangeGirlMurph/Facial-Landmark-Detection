@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
-from util.imageUtil import *
-from util.videoUtil import *
+import cv2 as cv
+from util.imageUtil import drawMaxSquareInImage, showImage, drawPointsInImage, mapPointsToImageSize
+from util.videoUtil import selectPort, mirrorImage, prepareImageForPrediction
 
 
 def testOnDataset(model, data):
@@ -12,7 +13,7 @@ def testOnDataset(model, data):
         showImage(im, x, y)
 
 
-def testOnVideo(model=2, videoPath=""):
+def testOnVideo(model, videoPath=""):
     """Tests the model on a video input. Either a path to a video or direct camera input."""
     print("\n> Testing the model on a video...")
 
@@ -24,9 +25,12 @@ def testOnVideo(model=2, videoPath=""):
         isCameraInput = False
 
     cap = cv.VideoCapture(port)
+    w, h = cap.get(3), cap.get(4)
+
+    windowName = "Video-Feed"
+    cv.namedWindow(windowName, cv.WINDOW_KEEPRATIO)
 
     print("- You can close the window by pressing 'q'")
-
     while(cap.isOpened()):
         rv, frame = cap.read()  # BGR
 
@@ -35,10 +39,11 @@ def testOnVideo(model=2, videoPath=""):
                 frame = mirrorImage(frame)
 
             im = prepareImageForPrediction(frame)
-            x, y = predictOnImage(model, im)
-            frame = plotPointsOnImage(frame, x, y)
 
-            cv.imshow("Video-Feed", frame)
+            x, y = predictOnImage(model, im)
+            x, y = mapPointsToImageSize(x, y, w, h)
+            frame = drawMaxSquareInImage(drawPointsInImage(frame, x, y))
+            cv.imshow(windowName, frame)
 
             if cv.waitKey(1) & 0xFF == ord('q'):
                 break
@@ -51,14 +56,11 @@ def testOnVideo(model=2, videoPath=""):
 
 def predictOnImage(model, im):
     """Predicts on a single image and returns the coordinates of the predicted points."""
-    pred = model.predict(im)
-    return (pred[0::2], pred[1::2])
+    pred = model.predict(im, verbose=0)
+    return (pred[0][0::2], pred[0][1::2])
 
 
 def predictOnImages(model, ims):
     """Predicts on multiple images and returns the list of coordinates of the predicted points."""
     pred = model.predict(ims)
     return ([i[0::2] for i in pred], [i[1::2] for i in pred])
-
-
-testOnVideo()

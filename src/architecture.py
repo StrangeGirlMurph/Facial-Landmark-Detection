@@ -1,4 +1,3 @@
-import keras
 from keras.models import Sequential
 from keras.layers import Convolution2D, BatchNormalization, Flatten, Dense, Dropout, MaxPool2D, LeakyReLU
 

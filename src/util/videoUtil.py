@@ -1,6 +1,6 @@
-import cv2 as cv
-from imageUtil import prepareImageForPrediction, mirrorImage
 import matplotlib.pyplot as plt
+import cv2 as cv
+from util.imageUtil import prepareImageForPrediction, mirrorImage
 
 
 def listAvailabePorts():
@@ -26,7 +26,12 @@ def selectPort():
     ports = listAvailabePorts()
 
     if not ports:
+        print("- No ports found... Trying port 0.")
         return 0
+
+    if len(ports) == 1:
+        print("- Only one port available:", list(ports.keys())[0])
+        return list(ports.keys())[0]
 
     print("Available ports (width, height):")
     for port, size in ports.items():
@@ -83,6 +88,3 @@ def showVideoFeed(videoPath="", showReadyForPred=False):
 
     cap.release()
     cv.destroyAllWindows()
-
-
-showVideoFeed(showReadyForPred=True)

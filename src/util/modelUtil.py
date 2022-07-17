@@ -3,10 +3,17 @@ import keras
 
 def saveModel(model=None, path="../../models/modelV1"):
     """Saves the model to the given path."""
+    print("\n> Saving the model...")
     if model is None:
         raise Exception("No model to save.")
     model.save(path)
     print("Model saved to: " + path)
+
+
+def loadModel(modelPath):
+    """ Loads the model from the given path."""
+    print("\n> Loading the model...")
+    return keras.models.load_model(modelPath)
 
 
 def summarizeModel(model):
