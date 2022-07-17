@@ -79,13 +79,3 @@ def defineModel():
     model.add(Dense(30))
 
     return model
-
-
-def summarizeModel(model):
-    """Prints a summary of the model."""
-    model.summary()
-
-
-def visualizeModel(model, path='../models/modelImage.png'):
-    """Creates an image which summarizes the model and visualizes the layers."""
-    keras.utils.plot_model(model, to_file=path, show_shapes=True)
