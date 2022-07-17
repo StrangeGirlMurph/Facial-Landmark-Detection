@@ -12,13 +12,15 @@ _Disclaimer: Git LFS is used for this repository! The repo contains the dataset.
 # Working-Area
 ## Questions
 + Do we really have to name the files according to the names mentioned in the slides?
-+ The dataset really isn't the best...
-  + 68% of the data is missing some key points
-  + The perspective is not really useful for input from a webcam or something
-+ 
++ Problem: The model works quite well on the dataset but not on webcam input.
+  + The dataset really isn't the best...
+     + 68% of the data is missing some key points
+     + The perspective is not really useful for input from a webcam or something
+  + Should we try some form of augmentation? I saw people do all kinds of things
+    + rotation, brightness, horizontal/vertical shift, random noise
 
 ## Ideas
-+ Simulate the rotation of the faces.
++ Applying augmentations to the data (rotation, brightness, horizontal/vertical shift, random noise)
 
 ## Notes
 + The "test dataset" doesn't include labels for the data.
