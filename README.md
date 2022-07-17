@@ -24,6 +24,9 @@ _Disclaimer: Git LFS is used for this repository! The repo contains the dataset.
   + for that terminal: `$Env:TF_CPP_MIN_LOG_LEVEL = "3"`
   + permanently: `Add-Content -Path $Profile.CurrentUserAllHosts -Value '$Env:TF_CPP_MIN_LOG_LEVEL = "3"'`
 
+## Models
++ V1 was trained in 43min on a Ryzen 5 3600. (Epochs: 20, Batch size: 256, Validation split: 0.2)
+
 # Usage
 Install Git LFS with `git lfs install` and clone/pull with `git lfs clone/pull`.  
 To run execute the `main.py` file.
