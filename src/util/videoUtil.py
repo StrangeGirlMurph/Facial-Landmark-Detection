@@ -1,6 +1,6 @@
+from util.imageUtil import prepareImageForPrediction, mirrorImage
 import matplotlib.pyplot as plt
 import cv2 as cv
-from util.imageUtil import prepareImageForPrediction, mirrorImage
 
 
 def listAvailabePorts():
