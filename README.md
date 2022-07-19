@@ -22,6 +22,9 @@ _Disclaimer: Git LFS is used for this repository! The repo contains the dataset.
 ## Ideas
 + Applying augmentations to the data (rotation, brightness, horizontal/vertical shift, random noise)
 
+## Resources
++ [Fast Facial Landmark Detection and Applications: A Survey](https://arxiv.org/pdf/2101.10808.pdf)
+
 ## Notes
 + The "test dataset" doesn't include labels for the data.
 
