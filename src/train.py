@@ -23,3 +23,9 @@ def trainModel(model, X_train, y_train, epochs=50, batch_size=256, validation_sp
     if save[0]:
         print("- Saving the model...")
         saveModel(model, "../models/" + save[1])
+
+
+def predictOnImage(model, image):
+    """Predicts on the input image and returns a list of x and y coordinates. """
+    pred = model.predict(image)
+    return pred[0::2], pred[1::2]

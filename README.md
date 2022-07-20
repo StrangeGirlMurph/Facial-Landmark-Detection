@@ -11,7 +11,6 @@ _Disclaimer: Git LFS is used for this repository! The repo contains the dataset.
 
 # Working-Area
 ## Questions
-+ Do we really have to name the files according to the names mentioned in the slides?
 + Problem: The model works quite well on the dataset but not on webcam input.
   + The dataset really isn't the best...
      + 68% of the data is missing some key points
@@ -22,13 +21,16 @@ _Disclaimer: Git LFS is used for this repository! The repo contains the dataset.
 ## Ideas
 + Applying augmentations to the data (rotation, brightness, horizontal/vertical shift, random noise)
 + Different models (heatmap approach)
-+ Edge detection to find the right frame
++ Edge detection to find the right frame - viola-jones algorithm
++ Masking (loss function not including all outputs)
 
 ## Things to deal with
 + Missing values in the dataset
 
 ## Resources
 + [Fast Facial Landmark Detection and Applications: A Survey](https://arxiv.org/pdf/2101.10808.pdf)
++ [OpenFace](https://github.com/TadasBaltrusaitis/OpenFace)
++ [Transfer learning keras](https://keras.io/guides/transfer_learning/)
 
 ## Notes
 + The "test dataset" doesn't include labels for the data.

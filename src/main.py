@@ -1,5 +1,5 @@
-from data_loading import loadData
-from architecture import defineModel
+from util.dataUtil import loadData
+from model import defineModel
 from test import testOnDataset, testOnVideo
 from train import trainModel
 from util.modelUtil import loadModel
