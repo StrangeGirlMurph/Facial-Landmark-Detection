@@ -21,7 +21,7 @@ _Disclaimer: Git LFS is used for this repository! The repo contains the dataset.
 
 ## Ideas
 + Applying augmentations to the data (rotation, brightness, horizontal/vertical shift, random noise)
-+ Different models (heatmap approche)
++ Different models (heatmap approach)
 + Edge detection to find the right frame
 
 ## Things to deal with
