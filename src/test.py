@@ -22,7 +22,7 @@ def testOnDataset(model, data, show=False, save=True):
         i += 1
 
     if save:
-        plt.savefig("../models/results/testOutput.png", bbox_inches='tight')
+        plt.savefig("../out/testOutput.png", bbox_inches='tight')
 
     if show:
         plt.show()
