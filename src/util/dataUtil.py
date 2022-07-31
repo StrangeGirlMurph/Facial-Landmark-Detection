@@ -52,5 +52,3 @@ def processRawData():
     np.save('../../data/processedData/X_test.npy', X_test)
 
     print("- Done!")
-
-# processRawData()

@@ -55,9 +55,21 @@ def drawMaxSquareInImage(im):
     return im
 
 
-def squareImage(img):
+def squareImage(im):
     """Squares the image and returns it. (The size is determind by the minimum of width and height of the input.)"""
-    h, w = img.shape[:2]
+    h, w = im.shape[:2]
     ds = min(h, w)//2
     h, w = h//2, w//2   # center
-    return img[h-ds:h+ds, w-ds:w+ds]
+    return im[h-ds:h+ds, w-ds:w+ds]
+
+
+def violaJones(im):
+    """Performs Viola Jones detection and returns the bounding boxes of the faces."""
+    face_cascade = cv.CascadeClassifier('haarcascade_frontalface_default.xml')
+    faces = face_cascade.detectMultiScale(im, 1.3, 5)
+
+    grayscale_image = cv.cvtColor(im, cv.COLOR_BGR2GRAY)
+    face_cascade = cv.CascadeClassifier('haarcascade_frontalface_alt.xml')
+    detected_faces = face_cascade.detectMultiScale(grayscale_image)
+    for (column, row, width, height) in detected_faces:
+        cv.rectangle(im, (column, row), (column + width, row + height), (0, 255, 0), 4)
