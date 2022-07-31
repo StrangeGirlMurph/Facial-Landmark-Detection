@@ -1,16 +1,31 @@
 import matplotlib.pyplot as plt
+import numpy as np
 import cv2 as cv
-from util.imageUtil import drawMaxSquareInImage, showImage, drawPointsInImage, mapPointsToImageSize
+from util.imageUtil import drawMaxSquareInImage, drawPointsInImage, mapPointsToImageSize
 from util.videoUtil import selectPort, mirrorImage, prepareImageForPrediction
 
 
-def testOnDataset(model, data):
+def testOnDataset(model, data, show=False, save=True):
     """Tests the model on the data and shows result."""
     print("\n> Testing the model...")
 
     X, Y = predictOnImages(model, data)
+    fig = plt.figure(figsize=(28, 20))
+
+    l = len(data)
+    i = 1
+
     for im, x, y in zip(data, X, Y):
-        showImage(im, x, y)
+        axis = fig.add_subplot(int(np.ceil(l/5)), 5, i)
+        axis.imshow(im, cmap='gray')
+        plt.scatter(x, y, c='b', marker='.')
+        i += 1
+
+    if save:
+        plt.savefig("../models/results/testOutput.png", bbox_inches='tight')
+
+    if show:
+        plt.show()
 
 
 def testOnVideo(model, videoPath=""):
