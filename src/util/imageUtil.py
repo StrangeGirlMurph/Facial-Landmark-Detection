@@ -1,22 +1,19 @@
 import matplotlib.pyplot as plt
 import cv2 as cv
 import numpy as np
+import os
 
 
-def showImage(image, x, y, cmap="gray"):
-    """Shows the image of size 96x96 with the points of the x,y coordinates."""
+def showImagePyplot(image, x, y, cmap="gray"):
+    """Shows the image with the points of the x,y coordinates."""
     plt.imshow(image, cmap=cmap)
     plt.scatter(x, y, c='b', marker='.')
     plt.show()
 
 
-def mapPointsToImageSize(x, y, w, h):
+def mapPointsFromSquareToImage(x, y, c, r, s, w, h):
     """Maps the points to fit image size and returns them. (The prediction points have their origin in the bottom left corner. But opencv uses the top left corner. Plus the function takes care of the scaling and offset.)"""
-    mid = np.array([w//2, h//2])
-    sideLength = min(w, h)
-    zero = mid - [sideLength//2, sideLength//2]
-    scaling = sideLength/96
-    return (x*scaling + zero[0], (y*scaling) + zero[1])
+    return (x*s/96 + c, (y*s/96) + r)
 
 
 def drawPointsInImage(im, x, y):
@@ -28,7 +25,7 @@ def drawPointsInImage(im, x, y):
 
 def prepareImageForPrediction(im):
     """Takes an image and returns it ready for prediction (performs: squaring, converting to grayscale and resizing)."""
-    return resizeImage(grayImage(squareImage(im))).astype(np.float32)
+    return resizeImageToModelSize(grayImage(squareImage(im))).astype(np.float32)
 
 
 def grayImage(im):
@@ -36,7 +33,7 @@ def grayImage(im):
     return cv.cvtColor(im, cv.COLOR_BGR2GRAY)
 
 
-def resizeImage(im):
+def resizeImageToModelSize(im):
     """Resizes the image to 96x96 and returns it."""
     return cv.resize(im, (96, 96), interpolation=cv.INTER_AREA).reshape(-1, 96, 96, 1)
 
@@ -44,6 +41,12 @@ def resizeImage(im):
 def mirrorImage(img):
     """Mirrors the image horizontaly and returns it."""
     return cv.flip(img, 1)
+
+
+def drawSquareInImage(im, x, y, s, rgb=(0, 255, 0), thickness=4):
+    """Draws a square in the image with the given coordinates (top left corner), width and height and returns it."""
+    cv.rectangle(im, (x, y), (x+s, y+s), rgb, thickness)
+    return im
 
 
 def drawMaxSquareInImage(im):
@@ -63,13 +66,22 @@ def squareImage(im):
     return im[h-ds:h+ds, w-ds:w+ds]
 
 
-def violaJones(im):
-    """Performs Viola Jones detection and returns the bounding boxes of the faces."""
-    face_cascade = cv.CascadeClassifier('haarcascade_frontalface_default.xml')
-    faces = face_cascade.detectMultiScale(im, 1.3, 5)
+def violaJonesGetFaceCascade():
+    """Returns the face cascade for the Viola Jones algorithm."""
+    cv2_base_dir = os.path.dirname(os.path.abspath(cv.__file__))
+    return cv.CascadeClassifier(os.path.join(cv2_base_dir, 'data/haarcascade_frontalface_default.xml'))
 
-    grayscale_image = cv.cvtColor(im, cv.COLOR_BGR2GRAY)
-    face_cascade = cv.CascadeClassifier('haarcascade_frontalface_alt.xml')
-    detected_faces = face_cascade.detectMultiScale(grayscale_image)
-    for (column, row, width, height) in detected_faces:
-        cv.rectangle(im, (column, row), (column + width, row + height), (0, 255, 0), 4)
+
+def violaJones(im, face_cascade):
+    """Performs Viola Jones detection and returns the bounding boxes of the faces."""
+    minSize = len(im)//2
+
+    faces = face_cascade.detectMultiScale(
+        im,
+        scaleFactor=1.1,
+        minNeighbors=5,
+        minSize=(minSize, minSize),
+        flags=cv.CASCADE_SCALE_IMAGE
+    )
+
+    return faces

@@ -1,7 +1,7 @@
 from util.dataUtil import loadData
 from util.modelUtil import loadModel
 from model import defineModel
-from test import testOnDataset, testOnVideo
+from test import testOnDataset, testOnVideoFile, testOnWebcam
 from train import trainModel
 
 X_train, y_train, X_test = loadData()
@@ -18,5 +18,6 @@ model = loadModel("../models/modelV1")
 # )
 # saveModel(model, "../models/modelV2")
 
-testOnDataset(model, X_test[30:50])
-# testOnVideo(model)  # "../data/media/Can You Watch This Without Smiling.mp4"
+# testOnDataset(model, X_test[30:50])
+# testOnWebcam(model)
+testOnVideoFile(model, videoPath="../data/media/Can You Watch This Without Smiling.mp4")

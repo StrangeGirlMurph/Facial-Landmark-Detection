@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 import cv2 as cv
-from util.imageUtil import drawMaxSquareInImage, drawPointsInImage, mapPointsToImageSize
+from util.imageUtil import drawMaxSquareInImage, drawPointsInImage, drawSquareInImage, grayImage, mapPointsFromSquareToImage, resizeImageToModelSize, violaJones, violaJonesGetFaceCascade
 from util.videoUtil import selectPort, mirrorImage, prepareImageForPrediction
 
 
@@ -28,36 +28,52 @@ def testOnDataset(model, data, show=False, save=True):
         plt.show()
 
 
-def testOnVideo(model, videoPath=""):
-    """Tests the model on a video input. Either a path to a video or direct camera input."""
+def testOnVideoFile(model, videoPath="..\data\media\Can You Watch This Without Smiling.mp4"):
+    """Tests the model on a video file."""
     print("\n> Testing the model on a video...")
 
-    if not videoPath:
-        port = selectPort()
-        isCameraInput = True
-    else:
-        port = videoPath
-        isCameraInput = False
+    videoLoop(model, videoPath, "Video-Feed", False)
 
-    cap = cv.VideoCapture(port)
+
+def testOnWebcam(model):
+    """Tests the model on the webcam."""
+    print("\n> Testing the model on the webcam feed...")
+
+    port = selectPort()
+    videoLoop(model, port, "Webcam-Feed", True)
+
+
+def videoLoop(model, inp, windowName, mirrored):
+    """Loops through the video and shows the predictions."""
+    faceCascade = violaJonesGetFaceCascade()
+    c, r, s = 0, 0, 0  # face location (column, row, sideLength)
+
+    cap = cv.VideoCapture(inp)
     w, h = cap.get(3), cap.get(4)
-
-    windowName = "Video-Feed"
     cv.namedWindow(windowName, cv.WINDOW_KEEPRATIO)
 
     print("- You can close the window by pressing 'q'")
+    frameCount = 0
     while(cap.isOpened()):
         rv, frame = cap.read()  # BGR
-
         if rv == True:
-            if isCameraInput:
+            if mirrored:
                 frame = mirrorImage(frame)
 
-            im = prepareImageForPrediction(frame)
+            im = grayImage(frame)
+            if frameCount % 10 == 0:
+                # every 10 frames, detect faces and draw them
+                faces = violaJones(im, faceCascade)
+                if len(faces) != 0:
+                    c, r, s1, s2 = faces[0]
+                    s = max(s1, s2)
 
+            im = resizeImageToModelSize(im[r:r+s, c:c+s])
             x, y = predictOnImage(model, im)
-            x, y = mapPointsToImageSize(x, y, w, h)
-            frame = drawMaxSquareInImage(drawPointsInImage(frame, x, y))
+            x, y = mapPointsFromSquareToImage(x, y, c, r, s, w, h)
+
+            frame = drawPointsInImage(frame, x, y)
+            frame = drawSquareInImage(frame, c, r, s)
             cv.imshow(windowName, frame)
 
             if cv.waitKey(1) & 0xFF == ord('q'):
