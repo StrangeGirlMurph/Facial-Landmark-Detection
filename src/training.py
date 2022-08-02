@@ -1,7 +1,7 @@
-from util.modelUtil import saveModel
+from util.modelUtil import showTrainingHistory
 
 
-def trainModel(model, X_train, y_train, epochs=50, batch_size=256, validation_split=0.2):
+def trainModel(model, X_train, y_train, epochs=50, batch_size=256, validation_split=0.2, showHistory=True):
     """Compiles and fits the model inplace plus saves it if specified under the given name. """
     print("\n> Training the model...")
     print(f"> Epochs: {epochs}, Batch size: {batch_size}, Validation split: {validation_split}")
@@ -9,13 +9,16 @@ def trainModel(model, X_train, y_train, epochs=50, batch_size=256, validation_sp
     model.compile(
         optimizer='adam',           # stochastic gradient descent
         loss='mean_squared_error',  # mean square error
-        metrics=['mae']             # mean absolute error
+        metrics=['mae', 'acc']      # mean absolute error
     )
 
-    model.fit(
+    history = model.fit(
         X_train,
         y_train,
         epochs=epochs,                      # number of epochs: 50
         batch_size=batch_size,              # batch size of 256
         validation_split=validation_split   # 20% of data for validation
     )
+
+    if showHistory:
+        showTrainingHistory(history)

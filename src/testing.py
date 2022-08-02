@@ -5,12 +5,12 @@ from util.imageUtil import drawMaxSquareInImage, drawPointsInImage, drawSquareIn
 from util.videoUtil import selectPort, mirrorImage, prepareImageForPrediction
 
 
-def testOnDataset(model, data, show=False, save=True):
+def testOnDataset(model, data, show=False, save=True, filename="testOutput.png"):
     """Tests the model on the data and shows result."""
     print("\n> Testing the model...")
 
     X, Y = predictOnImages(model, data)
-    fig = plt.figure(figsize=(28, 20))
+    fig = plt.figure(figsize=(14, 10))
 
     l = len(data)
     i = 1
@@ -21,9 +21,10 @@ def testOnDataset(model, data, show=False, save=True):
         plt.scatter(x, y, c='b', marker='.')
         i += 1
 
-    if save:
-        plt.savefig("../out/testOutput.png", bbox_inches='tight')
+    plt.tight_layout()
 
+    if save:
+        plt.savefig(f'../out/{filename}', dpi=300)
     if show:
         plt.show()
 
@@ -45,6 +46,8 @@ def testOnWebcam(model):
 
 def videoLoop(model, inp, windowName, mirrored):
     """Loops through the video and shows the predictions."""
+    print("- Starting the video loop...")
+
     faceCascade = violaJonesGetFaceCascade()
     c, r, s = 0, 0, 0  # face location (column, row, sideLength)
 

@@ -6,15 +6,6 @@ def defineModel():
     """ Creates a sequetial model, defines it's architecture and returns it. """
     print("\n> Defining the model...")
 
-    # - fully connected neural network -
-    # model = Sequential([
-    #     Flatten(input_shape=(96, 96)),
-    #     Dense(128, activation="relu"),
-    #     Dropout(0.1),
-    #     Dense(64, activation="relu"),
-    #     Dense(30)
-    # ])
-
     # - convolutional neural network -
     model = Sequential()
 
