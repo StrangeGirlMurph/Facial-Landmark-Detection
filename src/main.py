@@ -8,16 +8,16 @@ X_train, y_train, X_test = loadData()
 numberOfPoints = 20
 seed = 30
 
-model = loadModel("../models/modelV2")
+# model = loadModel("../models/modelV2")
 
-# model = defineModel()
-# trainModel(
-#     model, X_train, y_train,
-#     epochs=2,
-#     batch_size=128,
-#     validation_split=0.2,
-#     showHistory=True
-# )
+model = defineModel()
+trainModel(
+    model, X_train, y_train,
+    epochs=2,
+    batch_size=32,
+    validation_split=0.2,
+    showHistory=True
+)
 # saveModel(model, "../models/modelV2")
 
 

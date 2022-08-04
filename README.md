@@ -24,7 +24,7 @@ _Disclaimer: Git LFS is used for this repository! The repo contains the dataset.
 ## Models
 + V1 was trained in 43 min on a Ryzen 5 3600. (Epochs: 20, Batch size: 256, Validation split: 0.2)
 + V2 was trained in 15 min on a Colab GPU. (Epochs: 100, Batch size: 256, Validation split: 0.2)
-  + 
+  + loss: 8.4730 - masked_mean_absolute_error: 2.1146 - masked_accuracy: 0.5371
 
 ## Notes
 + The "test dataset" doesn't include labels for the data.
