@@ -5,7 +5,7 @@ from util.imageUtil import drawMaxSquareInImage, drawPointsInImage, drawSquareIn
 from util.videoUtil import selectPort, mirrorImage, prepareImageForPrediction
 
 
-def testOnDataset(model, data, show=False, save=True, filename="testOutput.png"):
+def testOnDataset(model, data, trueValues=None, show=False, save=True, filename="testOutput.png"):
     """Tests the model on the data and shows result."""
     print("\n> Testing the model...")
 
@@ -19,6 +19,8 @@ def testOnDataset(model, data, show=False, save=True, filename="testOutput.png")
         axis = fig.add_subplot(int(np.ceil(l/5)), 5, i)
         axis.imshow(im, cmap='gray')
         plt.scatter(x, y, c='b', marker='.')
+        if trueValues is not None:
+            plt.scatter(trueValues[i-1][0::2], trueValues[i-1][1::2], c='r', marker='.')
         i += 1
 
     plt.tight_layout()

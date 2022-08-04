@@ -29,29 +29,16 @@ def visualizeModel(model, path='../models/modelImage.png'):
 
 def showTrainingHistory(history):
     """Shows the training history of the model."""
-    fig, (ax1, ax2, ax3) = plt.subplots(1, 3)
+    keys = list(history.history.keys())  # for example ['loss', 'accuracy', 'val_loss', 'val_accuracy']
+    mid = int(len(keys) / 2)
+    fig, axes = plt.subplots(1, mid)
 
-    # summarize history for mean_absolute_error
-    ax1.plot(history.history['mae'])
-    ax1.plot(history.history['val_mae'])
-    ax1.set_title('Mean Absolute Error vs Epoch')
-    ax1.set_ylabel('Mean Absolute Error')
-    ax1.set_xlabel('Epochs')
-    ax1.legend(['train', 'validation'], loc='upper right')
-    # summarize history for accuracy
-    ax2.plot(history.history['acc'])
-    ax2.plot(history.history['val_acc'])
-    ax2.set_title('Accuracy vs Epoch')
-    ax2.set_ylabel('Accuracy')
-    ax2.set_xlabel('Epochs')
-    ax2.legend(['train', 'validation'], loc='upper left')
-    # summarize history for loss
-    ax3.plot(history.history['loss'])
-    ax3.plot(history.history['val_loss'])
-    ax3.set_title('Loss vs Epoch')
-    ax3.set_ylabel('Loss')
-    ax3.set_xlabel('Epochs')
-    ax3.legend(['train', 'validation'], loc='upper left')
+    for i, ax in enumerate(axes):
+        ax.plot(history.history[keys[i]])
+        ax.plot(history.history[keys[i + mid]])
+        ax.set_ylabel(keys[i])
+        ax.set_xlabel('Epochs')
+        ax.legend(['train', 'validation'], loc='lower right')
 
     plt.tight_layout()
     plt.show()

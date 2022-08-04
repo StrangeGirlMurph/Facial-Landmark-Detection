@@ -26,6 +26,7 @@ _Disclaimer: Git LFS is used for this repository! The repo contains the dataset.
 
 ## Things to deal with
 + Missing values in the dataset
++ the video window does not have fixed aspect ratio... (open-cv sucks...)
 
 ## Resources
 + [Fast Facial Landmark Detection and Applications: A Survey](https://arxiv.org/pdf/2101.10808.pdf)

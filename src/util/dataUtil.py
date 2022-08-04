@@ -26,10 +26,12 @@ def processRawData():
     print("- Checking for missing values...")
     print(trainData.isnull().sum())
 
+    # fill missing values with value
+    trainData.fillna(value=-1., inplace=True)
     # fill missing values with previous value
-    trainData.fillna(method='ffill', inplace=True)
-    # remove rows with missing values (would result in having only 2140 images to train on)
-    #train_data.reset_index(drop = True,inplace = True)
+    # trainData.fillna(method='ffill', inplace=True)
+    # remove rows with missing values
+    # train_data.reset_index(drop = True,inplace = True)
 
     print("- Missing values after filling:")
     print(trainData.isnull().any().value_counts())
