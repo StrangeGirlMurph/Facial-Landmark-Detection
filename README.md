@@ -43,3 +43,9 @@ _Disclaimer: Git LFS is used for this repository! The repo contains the dataset.
 # Usage
 Install Git LFS with `git lfs install` and clone/pull with `git lfs clone/pull`.  
 To run execute the `main.py` file.
+
+# Process notes
+## Masking
++ mean of all
++ mean of data points
++ 30s per epoch instead of 9s

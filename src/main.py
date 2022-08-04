@@ -3,7 +3,9 @@ from util.modelUtil import loadModel, saveModel
 from modelStructure import defineModel
 from testing import testOnDataset, testOnVideoFile, testOnWebcam
 from training import trainModel
+import tensorflow as tf
 
+print(tf.__version__)
 X_train, y_train, X_test = loadData()
 numberOfPoints = 20
 seed = 30
