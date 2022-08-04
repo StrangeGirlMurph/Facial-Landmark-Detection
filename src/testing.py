@@ -10,7 +10,7 @@ def testOnDataset(model, data, trueValues=None, show=False, save=True, filename=
     print("\n> Testing the model...")
 
     X, Y = predictOnImages(model, data)
-    fig = plt.figure(figsize=(14, 10))
+    fig = plt.figure(figsize=(28, 20))
 
     l = len(data)
     i = 1
