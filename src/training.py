@@ -27,26 +27,31 @@ def trainModel(model, X_train, y_train, epochs=50, batch_size=256, validation_sp
 
 
 def filter_mask(y_true):
-    return tf.cast(tf.math.equal(y_true, tf.constant(-1.)), tf.int8)
+    """Returns a mask of the same shape as y_true, where each element is 1 if the corresponding element in y_true is -1, 0 otherwise."""
+    return tf.math.logical_not(tf.math.equal(y_true, tf.constant(-1.)))
 
 
 def masked_mean_squared_error(y_true, y_pred):
+    """Returns the mean squared error between y_true and y_pred, ignoring -1 values."""
     mask = filter_mask(y_true)
-    num = tf.reduce_sum(mask, 1)
-    loss = tf.keras.losses.mean_squared_error(y_true, y_pred)
-    return (30/(30-num)) * loss
+    loss = tf.square(tf.abs(y_true - y_pred))
+    return tf.reduce_mean(tf.ragged.boolean_mask(loss, mask), 1)
 
 
 def masked_mean_absolute_error(y_true, y_pred):
+    """Returns the mean absolute error between y_true and y_pred, ignoring -1 values."""
     mask = filter_mask(y_true)
-    num = tf.reduce_sum(mask, 1)
-    loss = tf.keras.losses.mean_absolute_error(y_true, y_pred)
-    return (30/(30-num)) * loss
+    loss = tf.abs(y_true - y_pred)
+    return tf.reduce_mean(tf.ragged.boolean_mask(loss, mask), 1)
 
 
 def masked_accuracy(y_true, y_pred):
-    diff = tf.reshape(tf.abs(y_true - y_pred), [-1])
-    passed = tf.math.count_nonzero(tf.logical_and(tf.less(diff, 2), tf.logical_not(tf.equal(diff, 1))))  # in margin of one pixel the prediction is counted as correct
+    """Returns the accuracy between y_true and y_pred, ignoring -1 values."""
+    mask = filter_mask(y_true)
+    diff = tf.abs(y_true - y_pred)
+    diff = tf.boolean_mask(diff, mask)
+    # in margin of 2 pixel the prediction is counted as correct
+    passed = tf.math.count_nonzero(tf.less(diff, 2))
     masked_accuracy.inMargin += passed.numpy()
     masked_accuracy.total += tf.size(diff).numpy()
     return masked_accuracy.inMargin / masked_accuracy.total

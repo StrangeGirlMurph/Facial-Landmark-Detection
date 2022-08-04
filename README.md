@@ -24,7 +24,7 @@ _Disclaimer: Git LFS is used for this repository! The repo contains the dataset.
 ## Models
 + V1 was trained in 43 min on a Ryzen 5 3600. (Epochs: 20, Batch size: 256, Validation split: 0.2)
 + V2 was trained in 15 min on a Colab GPU. (Epochs: 100, Batch size: 256, Validation split: 0.2)
-  + loss: 8.4730 - masked_mean_absolute_error: 2.1146 - masked_accuracy: 0.5371
+  + loss: 4.3127 - masked_mean_absolute_error: 1.5840 - masked_accuracy: 0.5411
 
 ## Notes
 + The "test dataset" doesn't include labels for the data.
@@ -46,6 +46,8 @@ To run execute the `main.py` file.
 
 # Process notes
 ## Masking
-+ mean of all
-+ mean of data points
-+ 30s per epoch instead of 9s
++ Setting the abs of the missing values to 0 and taking the mean reducing everything to a scalar.
++ Discarding the abs of all the missing values and taking the mean reducing everything to a scalar.
++ Discarding the abs of all the missing value and taking the mean per data point. For that I used ragged tensors which let the time for a single epoch go from 9s to 30s (9s * 100epochs = 15min, 30s * 100epochs = 50min)
++ Optimising the crap out of it and getting back to normal tensors -> 9s per epoch and correct calculation.
++ Again a logical mistake but I hope it's calculating the correct thing now...

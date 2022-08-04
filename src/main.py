@@ -3,26 +3,15 @@ from util.modelUtil import loadModel, saveModel
 from modelStructure import defineModel
 from testing import testOnDataset, testOnVideoFile, testOnWebcam
 from training import trainModel
-import tensorflow as tf
 
-print(tf.__version__)
 X_train, y_train, X_test = loadData()
-numberOfPoints = 20
-seed = 30
+numberOfPoints, seed = 20, 30
 
-# model = loadModel("../models/modelV2")
+model = loadModel("../models/modelV1")
+testOnDataset(model, X_train[seed:seed+numberOfPoints], trueValues=y_train[seed:seed+numberOfPoints], show=True, save=True, filename="V1.png")
 
-model = defineModel()
-trainModel(
-    model, X_train, y_train,
-    epochs=2,
-    batch_size=32,
-    validation_split=0.2,
-    showHistory=True
-)
-# saveModel(model, "../models/modelV2")
+model = loadModel("../models/modelV2")
+testOnDataset(model, X_train[seed:seed+numberOfPoints], trueValues=y_train[seed:seed+numberOfPoints], show=True, save=True, filename="V2.png")
 
-
-testOnDataset(model, X_train[seed:seed+numberOfPoints], trueValues=y_train[seed:seed+numberOfPoints], show=True, save=False, filename="output.png")
 # testOnVideoFile(model, videoPath="../data/media/Can You Watch This Without Smiling.mp4")
 # testOnWebcam(model)
