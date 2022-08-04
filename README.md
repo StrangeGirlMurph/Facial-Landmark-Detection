@@ -11,6 +11,7 @@ _Disclaimer: Git LFS is used for this repository! The repo contains the dataset.
 # Working-Area
 ## Questions
 + "Proper way" to do masking instead of writing your own loss/metrics?
++ I am a bit scared that the optimizer doesn't train properly with the masking...
 
 ## Ideas
 + Applying augmentations to the data (rotation, brightness, horizontal/vertical shift, random noise).
@@ -18,12 +19,12 @@ _Disclaimer: Git LFS is used for this repository! The repo contains the dataset.
 + Annotating a video to get technical measurements.
 
 ## Things to deal with
-+ The video window doesn't have fixed aspect ratio... (open-cv sucks...)
++ The video window doesn't have fixed aspect ratio... (opencv sucks...)
 
 ## Models
 + V1 was trained in 43 min on a Ryzen 5 3600. (Epochs: 20, Batch size: 256, Validation split: 0.2)
 + V2 was trained in 15 min on a Colab GPU. (Epochs: 100, Batch size: 256, Validation split: 0.2)
-  + loss: 3.3800 - masked_mean_absolute_error: 1.0319 - masked_accuracy: 0.6474
+  + 
 
 ## Notes
 + The "test dataset" doesn't include labels for the data.
