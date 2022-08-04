@@ -1,5 +1,7 @@
 import pandas as pd
 import numpy as np
+import matplotlib.pyplot as plt
+import random
 
 
 def loadData():
@@ -54,3 +56,16 @@ def processRawData():
     np.save('../../data/processedData/X_test.npy', X_test)
 
     print("- Done!")
+
+
+def generateImages():
+    X_train, y_train, X_test = loadData()
+
+    indices = [random.randint(0, len(X_train)-1) for p in range(0, 100)]
+    for i in indices:
+        fig = plt.figure()
+        plt.imshow(X_train[i], cmap="gray")
+        plt.scatter(y_train[i][0::2], y_train[i][1::2], c='b', marker='.')
+        plt.tight_layout()
+        plt.savefig(f"../out/images/{i}.png", bbox_inches='tight')
+        plt.close(fig)

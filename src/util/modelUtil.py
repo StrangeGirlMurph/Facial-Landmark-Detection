@@ -11,8 +11,22 @@ def saveModel(model, path="../../models/modelV1"):
 
 def loadModel(modelPath):
     """ Loads the model from the given path."""
+    from training import masked_accuracy, masked_mean_squared_error, masked_mean_absolute_error
     print("\n> Loading the model...")
-    return keras.models.load_model(modelPath)
+    try:
+        return keras.models.load_model(modelPath)
+    except:
+        pass
+    try:
+        return keras.models.load_model(
+            modelPath,
+            custom_objects={
+                "masked_accuracy": masked_accuracy,
+                "masked_mean_squared_error": masked_mean_squared_error,
+                "masked_mean_absolute_error": masked_mean_absolute_error
+            })
+    except:
+        raise Exception("Model could not be loaded.")
 
 
 def summarizeModel(model):
@@ -37,8 +51,8 @@ def showTrainingHistory(history):
         ax.plot(history.history[keys[i]])
         ax.plot(history.history[keys[i + mid]])
         ax.set_ylabel(keys[i])
-        ax.set_xlabel('Epochs')
-        ax.legend(['train', 'validation'], loc='lower right')
+        ax.set_xlabel('epochs')
+        ax.legend(['train', 'validation'], loc='best')
 
     plt.tight_layout()
     plt.show()
