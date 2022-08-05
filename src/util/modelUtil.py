@@ -54,5 +54,9 @@ def showTrainingHistory(history):
         ax.set_xlabel('epochs')
         ax.legend(['train', 'validation'], loc='best')
 
-    plt.tight_layout()
-    plt.show()
+    historyPlot = fig
+    historyPlot.set_dpi(300)
+    historyPlot.set_size_inches(12, 4)
+    historyPlot.set_facecolor("white")
+    historyPlot.set_tight_layout(True)
+    historyPlot.show()

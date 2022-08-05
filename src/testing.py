@@ -26,7 +26,7 @@ def testOnDataset(model, data, trueValues=None, show=False, save=True, filename=
     plt.tight_layout()
 
     if save:
-        plt.savefig(f'../out/{filename}', dpi=300)
+        plt.savefig(f'../output/{filename}', dpi=300)
     if show:
         plt.show()
 
