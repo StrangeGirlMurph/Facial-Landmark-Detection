@@ -49,6 +49,7 @@ def testOnWebcam(model):
 def videoLoop(model, inp, windowName, mirrored):
     """Loops through the video and shows the predictions."""
     print("- Starting the video loop...")
+    print("- You can close the window by pressing 'q'")
 
     faceCascade = violaJonesGetFaceCascade()
     c, r, s = 0, 0, 0  # face location (column, row, sideLength)
@@ -57,28 +58,41 @@ def videoLoop(model, inp, windowName, mirrored):
     w, h = cap.get(3), cap.get(4)
     cv.namedWindow(windowName, cv.WINDOW_KEEPRATIO)
 
-    print("- You can close the window by pressing 'q'")
     frameCount = 0
+    countdown = 10
+    faceFound = False
+
     while(cap.isOpened()):
         rv, frame = cap.read()  # BGR
+
         if rv == True:
+            # mirroring if webcam input
             if mirrored:
                 frame = mirrorImage(frame)
 
             im = grayImage(frame)
+
             if frameCount % 10 == 0:
-                # every 10 frames, detect faces and draw them
+                # detects faces every 10 frames
                 faces = violaJones(im, faceCascade)
                 if len(faces) != 0:
+                    faceFound = True
+                    countdown = 10
                     c, r, s1, s2 = faces[0]
                     s = max(s1, s2)
+                else:
+                    if (countdown == 0):
+                        faceFound = False
+                    else:
+                        countdown -= 1
 
-            im = resizeImageToModelSize(im[r:r+s, c:c+s])
-            x, y = predictOnImage(model, im)
-            x, y = mapPointsFromSquareToImage(x, y, c, r, s, w, h)
+            if faceFound:
+                im = resizeImageToModelSize(im[r:r+s, c:c+s])
+                x, y = predictOnImage(model, im)
+                x, y = mapPointsFromSquareToImage(x, y, c, r, s, w, h)
+                frame = drawPointsInImage(frame, x, y)
+                frame = drawSquareInImage(frame, c, r, s)
 
-            frame = drawPointsInImage(frame, x, y)
-            frame = drawSquareInImage(frame, c, r, s)
             cv.imshow(windowName, frame)
 
             if cv.waitKey(1) & 0xFF == ord('q'):
