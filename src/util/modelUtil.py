@@ -35,7 +35,7 @@ def summarizeModel(model):
     model.summary()
 
 
-def visualizeModel(model, path='../models/modelImage.png'):
+def visualizeModel(model, path='../output/modelImage.png'):
     """Creates an image which summarizes the model and visualizes the layers."""
     keras.utils.plot_model(model, to_file=path, show_shapes=True)
     print("\n> Model visualization saved to: " + path)

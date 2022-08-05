@@ -67,5 +67,5 @@ def generateImages():
         plt.imshow(X_train[i], cmap="gray")
         plt.scatter(y_train[i][0::2], y_train[i][1::2], c='b', marker='.')
         plt.tight_layout()
-        plt.savefig(f"../out/images/{i}.png", bbox_inches='tight')
+        plt.savefig(f"../data/sampleImages/{i}.png", bbox_inches='tight')
         plt.close(fig)
