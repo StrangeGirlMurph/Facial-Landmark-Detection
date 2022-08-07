@@ -102,3 +102,12 @@ def generateImages():
         plt.tight_layout()
         plt.savefig(f"../data/sampleImages/{i}.png", bbox_inches='tight')
         plt.close(fig)
+
+
+def printDatasetOverview():
+    """Prints some basic information about the dataset."""
+    print("\n> Printing dataset overview...")
+    data = pd.read_csv('../../data/rawData/trainingData.csv')
+
+    print("Head:\n", data.head().T[0])
+    print("Info:\n", data.info())
