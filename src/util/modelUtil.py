@@ -60,3 +60,8 @@ def showTrainingHistory(history):
     historyPlot.set_facecolor("white")
     historyPlot.set_tight_layout(True)
     historyPlot.show()
+
+
+def evaluateModel(model, X, Y):
+    """Evaluates the model on the given data with their true labels and returns the loss and metrics."""
+    return model.evaluate(x=X, y=Y)
