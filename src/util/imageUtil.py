@@ -18,8 +18,9 @@ def mapPointsFromSquareToImage(x, y, c, r, s, w, h):
 
 def drawPointsInImage(im, x, y):
     """Plots the points given by the x and y coordinates on the image and returns it."""
+    size = min(im.shape[:2])//360
     for i, j in zip(x, y):
-        cv.circle(im, (int(i), int(j)), 3, (255, 0, 0), -1)
+        cv.circle(im, (int(i), int(j)), size, (255, 0, 0), -1)
     return im
 
 
@@ -43,7 +44,7 @@ def mirrorImage(img):
     return cv.flip(img, 1)
 
 
-def drawSquareInImage(im, x, y, s, rgb=(0, 255, 0), thickness=4):
+def drawSquareInImage(im, x, y, s, rgb=(179, 255, 179), thickness=3):
     """Draws a square in the image with the given coordinates (top left corner), width and height and returns it."""
     cv.rectangle(im, (x, y), (x+s, y+s), rgb, thickness)
     return im
@@ -74,7 +75,7 @@ def violaJonesGetFaceCascade():
 
 def violaJones(im, face_cascade):
     """Performs Viola Jones detection and returns the bounding boxes of the faces."""
-    minSize = len(im)//2
+    minSize = 384
 
     faces = face_cascade.detectMultiScale(
         im,

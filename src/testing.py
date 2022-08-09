@@ -49,35 +49,54 @@ def testOnWebcam(model):
 def videoLoop(model, inp, windowName, mirrored):
     """Loops through the video and shows the predictions."""
     print("- Starting the video loop...")
-    print("- You can close the window by pressing 'q'")
+    print("- You can close the window by pressing 'q'.")
+    print("- Press 's' to switch between the view modes.")
+    print("- Use '+' and '-' to change the size of the window.")
+    print("- And press space to pause the feed.")
 
-    faceCascade = violaJonesGetFaceCascade()
-    c, r, s = 0, 0, 0  # face location (column, row, sideLength)
-
+    # Window
     cap = cv.VideoCapture(inp)
-    w, h = cap.get(3), cap.get(4)
     cv.namedWindow(windowName, cv.WINDOW_KEEPRATIO)
-
     frameCount = 0
-    countdown = 10
+
+    # Face recognition
+    c, r, s = 0, 0, 0  # face location (column, row, sideLength)
+    faceCascade = violaJonesGetFaceCascade()
+    faceRecognitionFrames = 10  # every nth frame is used for face recognition
+    faceRecognitionCountdown = 5  # number of frames to wait before old data is discarded
+    countdown = faceRecognitionCountdown
     faceFound = False
 
-    while(cap.isOpened()):
-        rv, frame = cap.read()  # BGR
+    # Window size
+    scale = 1  # scale of the window
+    SCALE_STEP = 0.1  # step size of the window scale
+    DEFAULT_PRED_WINDOW_SIZE = 384  # default size of the prediction window
+    FEED_WIDTH, FEED_HEIGHT = int(cap.get(3)), int(cap.get(4))
+    DEFAULT_WINDOW_WIDTH, DEFAULT_WINDOW_HEIGHT = FEED_WIDTH, FEED_HEIGHT
+    if min(FEED_WIDTH, FEED_HEIGHT) >= 1080:
+        DEFAULT_WINDOW_WIDTH, DEFAULT_WINDOW_HEIGHT = FEED_WIDTH//2, FEED_HEIGHT//2
+    cv.resizeWindow(windowName, DEFAULT_WINDOW_WIDTH, DEFAULT_WINDOW_HEIGHT)
 
-        if rv == True:
+    showPredImage = False  # show the 96x96 image that gets predicted on
+    pause = False
+
+    while(cap.isOpened()):
+        if not pause:
+            rv, frame = cap.read()  # BGR
+            if not rv:
+                break
+
             # mirroring if webcam input
             if mirrored:
                 frame = mirrorImage(frame)
 
             im = grayImage(frame)
 
-            if frameCount % 10 == 0:
-                # detects faces every 10 frames
+            if frameCount % faceRecognitionFrames == 0:
                 faces = violaJones(im, faceCascade)
                 if len(faces) != 0:
                     faceFound = True
-                    countdown = 10
+                    countdown = faceRecognitionCountdown
                     c, r, s1, s2 = faces[0]
                     s = max(s1, s2)
                 else:
@@ -86,19 +105,44 @@ def videoLoop(model, inp, windowName, mirrored):
                     else:
                         countdown -= 1
 
-            if faceFound:
+            if showPredImage:
                 im = resizeImageToModelSize(im[r:r+s, c:c+s])
-                x, y = predictOnImage(model, im)
-                x, y = mapPointsFromSquareToImage(x, y, c, r, s, w, h)
-                frame = drawPointsInImage(frame, x, y)
-                frame = drawSquareInImage(frame, c, r, s)
+                if faceFound:
+                    x, y = predictOnImage(model, im)
+                    frame = drawPointsInImage(im[0], x, y)
+                else:
+                    frame = im[0]
+            else:
+                if faceFound:
+                    im = resizeImageToModelSize(im[r:r+s, c:c+s])
+                    x, y = predictOnImage(model, im)
+                    x, y = mapPointsFromSquareToImage(x, y, c, r, s, FEED_WIDTH, FEED_HEIGHT)
+                    frame = drawPointsInImage(frame, x, y)
+                    frame = drawSquareInImage(frame, c, r, s)
 
             cv.imshow(windowName, frame)
 
-            if cv.waitKey(1) & 0xFF == ord('q'):
-                break
-        else:
+        # input handling
+        key = cv.waitKey(1) & 0xFF
+        if key == ord('s') or key == ord('+') or key == ord('-'):
+            # change window
+            if key == ord('+'):
+                scale += SCALE_STEP
+            elif key == ord('-'):
+                scale -= SCALE_STEP
+            else:
+                showPredImage = not showPredImage
+
+            if showPredImage:
+                cv.resizeWindow(windowName, int(DEFAULT_PRED_WINDOW_SIZE * scale), int(DEFAULT_PRED_WINDOW_SIZE * scale))
+            else:
+                cv.resizeWindow(windowName, int(DEFAULT_WINDOW_WIDTH * scale), int(DEFAULT_WINDOW_HEIGHT * scale))
+        elif key == ord('q'):
+            # close the window
             break
+        elif key == ord(' '):
+            # pause the video
+            pause = not pause
 
     cap.release()
     cv.destroyAllWindows()
