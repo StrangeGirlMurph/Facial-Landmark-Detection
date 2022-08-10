@@ -10,8 +10,7 @@ _Disclaimer: Git LFS is used for this repository! The repo contains the dataset.
 
 # Working-Area
 ## Questions
-+ "Proper way" to do masking instead of writing your own loss/metrics?
-+ I am a bit scared that the optimizer doesn't train properly with the masking...
++ Demo file? Complete code from raw data to video feed?
 
 ## Ideas
 + Applying augmentations to the data (rotation, brightness, horizontal/vertical shift, random noise).

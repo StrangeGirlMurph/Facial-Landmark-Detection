@@ -18,7 +18,7 @@ def mapPointsFromSquareToImage(x, y, c, r, s, w, h):
 
 def drawPointsInImage(im, x, y):
     """Plots the points given by the x and y coordinates on the image and returns it."""
-    size = min(im.shape[:2])//360
+    size = min(im.shape[:2])//300
     for i, j in zip(x, y):
         cv.circle(im, (int(i), int(j)), size, (255, 0, 0), -1)
     return im
@@ -75,7 +75,7 @@ def violaJonesGetFaceCascade():
 
 def violaJones(im, face_cascade):
     """Performs Viola Jones detection and returns the bounding boxes of the faces."""
-    minSize = 384
+    minSize = 288
 
     faces = face_cascade.detectMultiScale(
         im,
