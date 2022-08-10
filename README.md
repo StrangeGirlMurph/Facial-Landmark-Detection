@@ -8,6 +8,11 @@ _Disclaimer: Git LFS is used for this repository! The repo contains the dataset.
 + [Organisational Slides](https://docs.google.com/presentation/d/1Lbggpj_nj4RomOm4q35XUcoOoDsIDvT18GLpOIygC2Q/edit#slide=id.p)
 + [GitHub Repo](https://github.com/StrangeGirlMurph/DeepLearning-FacialLandmarkDetection)
 
+# Usage
+Install Git LFS with `git lfs install` and clone/pull the large files with `git lfs clone/pull`.  
+To train the model set the parameters and execute `mainTraining.py`. To test a model do the same with `mainTesting.py`
+
+
 # Working-Area
 ## Questions
 + Demo file? Complete code from raw data to video feed?
@@ -23,7 +28,11 @@ _Disclaimer: Git LFS is used for this repository! The repo contains the dataset.
 ## Models
 + V1 was trained in 43 min on a Ryzen 5 3600. (Epochs: 20, Batch size: 256, Validation split: 0.2)
 + V2 was trained in 15 min on a Colab GPU. (Epochs: 100, Batch size: 256, Validation split: 0.2)
-  + loss: 4.3127 - masked_mean_absolute_error: 1.5840 - masked_accuracy: 0.5411
+  + Results ⁘ loss: 4.3127 - masked_mean_absolute_error: 1.5840 - masked_accuracy: 0.5411
+  + Specialties ⁘ masking the ouput for the missing values
++ V3 was trained in 25 min on a Colab GPU. (Epochs: 100, Batch size: 256, Validation split: 0.2)
+  + Results ⁘ loss: 3.7041 - masked_mean_absolute_error: 1.4212 - masked_accuracy: 0.6283
+  + Specialties ⁘ trained with rotation augmentated data
 
 ## Notes
 + The "test dataset" doesn't include labels for the data.
@@ -39,9 +48,6 @@ _Disclaimer: Git LFS is used for this repository! The repo contains the dataset.
   + for that terminal: `$Env:TF_CPP_MIN_LOG_LEVEL = "3"`
   + permanently: `Add-Content -Path $Profile.CurrentUserAllHosts -Value '$Env:TF_CPP_MIN_LOG_LEVEL = "3"'`
 
-# Usage
-Install Git LFS with `git lfs install` and clone/pull with `git lfs clone/pull`.  
-To run execute the `main.py` file.
 
 # Process notes
 ## Masking

@@ -14,4 +14,4 @@ trainModel(
     showHistory=True
 )
 
-saveModel(model, "../models/modelV2")
+saveModel(model, "../models/modelV3")
