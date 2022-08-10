@@ -83,15 +83,18 @@ def performRotationAugmentation(X, y, angles=[12]):
 
 
 def preprocessLabels(data):
+    """Extracts the labels from the data and returns them in the correct form."""
     return data.drop('Image', axis=1).to_numpy(dtype=np.float16)
 
 
 def preprocessFeatures(data):
+    """Extracts the images from the data and returns them in the correct form."""
     images = data['Image'].str.split(" ")
     return np.array(images.to_list(), dtype=np.uint8).reshape(-1, 96, 96, 1)
 
 
 def generateImages():
+    """Generates png images from the raw data and stores them."""
     X_train, y_train, X_test = loadData()
 
     indices = [random.randint(0, len(X_train)-1) for p in range(0, 100)]
