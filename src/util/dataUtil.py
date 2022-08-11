@@ -14,11 +14,15 @@ def loadData(includeAugmented=True):
     X_test = np.load('../data/processedData/X_test.npy').astype(np.float32)
 
     if includeAugmented:
-        X_augmented = np.load('../data/processedData/X_augmented.npy').astype(np.float32)
-        y_augmented = np.load('../data/processedData/y_augmented.npy').astype(np.float32)
+        X_augmented, y_augmented = loadAugmentedData()
         return np.concatenate((X_train, X_augmented)), np.concatenate((y_train, y_augmented)), X_test
 
     return X_train, y_train, X_test
+
+
+def loadAugmentedData():
+    """Loads the augmented data from the numpy files."""
+    return np.load('../data/processedData/X_augmented.npy').astype(np.float32), np.load('../data/processedData/y_augmented.npy').astype(np.float32)
 
 
 def processRawData(augmentation=True):
@@ -93,17 +97,15 @@ def preprocessFeatures(data):
     return np.array(images.to_list(), dtype=np.uint8).reshape(-1, 96, 96, 1)
 
 
-def generateImages():
-    """Generates png images from the raw data and stores them."""
-    X_train, y_train, X_test = loadData()
-
-    indices = [random.randint(0, len(X_train)-1) for p in range(0, 100)]
+def generateImages(X, y, folderName="sampleImages"):
+    """Generates png images from the raw data and stores them under "../data/{folderName}/*.png" (the folder in data already has to exist)."""
+    indices = [random.randint(0, len(X)-1) for p in range(0, 100)]
     for i in indices:
         fig = plt.figure()
-        plt.imshow(X_train[i], cmap="gray")
-        plt.scatter(y_train[i][0::2], y_train[i][1::2], c='b', marker='.')
+        plt.imshow(X[i], cmap="gray")
+        plt.scatter(y[i][0::2], y[i][1::2], c='b', marker='.')
         plt.tight_layout()
-        plt.savefig(f"../data/sampleImages/{i}.png", bbox_inches='tight')
+        plt.savefig(f"../data/{folderName}/{i}.png", bbox_inches='tight')
         plt.close(fig)
 
 

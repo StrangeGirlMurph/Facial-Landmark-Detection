@@ -12,7 +12,6 @@ _Disclaimer: Git LFS is used for this repository! The repo contains the dataset.
 Install Git LFS with `git lfs install` and clone/pull the large files with `git lfs clone/pull`.  
 To train the model set the parameters and execute `mainTraining.py`. To test a model do the same with `mainTesting.py`
 
-
 # Working-Area
 ## Questions
 + Demo file? Complete code from raw data to video feed?
