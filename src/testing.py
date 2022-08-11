@@ -50,7 +50,7 @@ def videoLoop(model, inp, windowName, mirrored):
     """Loops through the video and shows the predictions."""
     print("- Starting the video loop...")
     print("- You can close the window by pressing 'q'.")
-    print("- Press 's' to switch between the view modes.")
+    print("- Press 's' to switch between the view modes and 'f' to toggle the frame around the face.")
     print("- Use '+' and '-' to change the size of the window.")
     print("- And press space to pause the feed.")
 
@@ -66,6 +66,7 @@ def videoLoop(model, inp, windowName, mirrored):
     faceRecognitionCountdown = 5  # number of frames to wait before old data is discarded
     countdown = faceRecognitionCountdown
     faceFound = False
+    showFrame = True
 
     # Window size
     scale = 1  # scale of the window
@@ -118,7 +119,8 @@ def videoLoop(model, inp, windowName, mirrored):
                     x, y = predictOnImage(model, im)
                     x, y = mapPointsFromSquareToImage(x, y, c, r, s, FEED_WIDTH, FEED_HEIGHT)
                     frame = drawPointsInImage(frame, x, y)
-                    frame = drawSquareInImage(frame, c, r, s)
+                    if showFrame:
+                        frame = drawSquareInImage(frame, c, r, s)
 
             cv.imshow(windowName, frame)
 
@@ -137,6 +139,8 @@ def videoLoop(model, inp, windowName, mirrored):
                 cv.resizeWindow(windowName, int(DEFAULT_PRED_WINDOW_SIZE * scale), int(DEFAULT_PRED_WINDOW_SIZE * scale))
             else:
                 cv.resizeWindow(windowName, int(DEFAULT_WINDOW_WIDTH * scale), int(DEFAULT_WINDOW_HEIGHT * scale))
+        elif key == ord('f'):
+            showFrame = not showFrame
         elif key == ord('q'):
             # close the window
             break
