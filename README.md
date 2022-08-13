@@ -20,6 +20,8 @@ To train the model set the parameters and execute `mainTraining.py`. To test a m
 + Applying augmentations to the data (rotation, brightness, horizontal/vertical shift, random noise).
 + Different typ of models to compare to (heatmap approach).
 + Annotating a video to get technical measurements.
++ Flipping
++ more angles
 
 ## Things to deal with
 + The video window doesn't have fixed aspect ratio... (opencv sucks...)
