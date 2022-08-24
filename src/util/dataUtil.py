@@ -1,6 +1,8 @@
+from util.augmentationUtil import rotate, horizontalFlip, cropAndPad, perspective, brightnessAndContrast
+import matplotlib.pyplot as plt
+from tqdm import tqdm
 import pandas as pd
 import numpy as np
-import matplotlib.pyplot as plt
 import cv2 as cv
 import random
 
@@ -25,19 +27,55 @@ def loadAugmentedData():
     return np.load('../data/processedData/X_augmented.npy').astype(np.float32), np.load('../data/processedData/y_augmented.npy').astype(np.float32)
 
 
-def processRawData(augmentation=True):
+def performDataAugmentation(X, y, onlyCleanData=True):
+    """Performs data augmentation on the given data and stores the data."""
+    print("\n> Performing data augmentation...")
+
+    if onlyCleanData:
+        a, b = np.where(y == -1)
+        indices = np.unique(a)  # indices of the unclean images
+        X = np.delete(X, indices, axis=0)
+        y = np.delete(y, indices, axis=0)
+
+    y = y.reshape(-1, 15, 2)
+
+    X_augmented, y_augmented = np.empty((0, 96, 96, 1)), np.empty((0, 15, 2))
+
+    augmentations = [rotate, horizontalFlip, cropAndPad, perspective, brightnessAndContrast]
+    print(f"- Performing: {', '.join(list(map(lambda a: a.__name__,augmentations)))}")
+    for augmentation in augmentations:
+        X_new, y_new = np.copy(X), np.copy(y)
+        for i in tqdm(np.ndindex(X_new.shape[0])):
+            X_new[i], y_new[i] = augmentation(X_new[i], y_new[i])
+        X_augmented = np.concatenate((X_augmented, X_new))
+        y_augmented = np.concatenate((y_augmented, y_new))
+
+    a, b, c = np.where((y_augmented < 0) | (y_augmented > 96))
+    y_augmented[a, b, :] = -1
+    y_augmented = y_augmented.reshape(-1, 30).astype(np.float16)
+    X_augmented = X_augmented.astype(np.uint8)
+
+    print("Augmented features: ", X_augmented.shape, X_augmented.dtype)
+    print("Augmented labels: ", y_augmented.shape, y_augmented.dtype)
+
+    np.save('../data/processedData/X_augmented.npy', X_augmented)
+    np.save('../data/processedData/y_augmented.npy', y_augmented)
+
+    print("- Done!")
+
+
+def processRawData():
     """Reads the data from the bare csv files, preprocesses the data and stores it in numpy files for faster access. (Preprocessing and reading from the csv files all the time is slow)"""
     print("\n> Processing the raw data...")
 
     # -- read data from csv --
-    trainData = pd.read_csv('../../data/rawData/trainingData.csv')
-    testData = pd.read_csv('../../data/rawData/testData.csv')
+    trainData = pd.read_csv('../data/rawData/trainingData.csv')
+    testData = pd.read_csv('../data/rawData/testData.csv')
 
     # -- preprocessing --
     print("- Checking for missing values...")
     print(trainData.isnull().sum())
 
-    cleanTrainData = trainData.dropna(inplace=False)
     # fill missing values with -1 for the masking
     trainData.fillna(value=-1., inplace=True)
 
@@ -48,42 +86,16 @@ def processRawData(augmentation=True):
     X_train = preprocessFeatures(trainData)
     y_train = preprocessLabels(trainData)
     X_test = preprocessFeatures(testData)
-    X_cleanTrain = preprocessFeatures(cleanTrainData)
-    y_cleanTrain = preprocessLabels(cleanTrainData)
-
-    print("- Performing augmentations on the clean clean data...")
-    X_augmented, y_augmented = performRotationAugmentation(X_cleanTrain, y_cleanTrain, angles=[-12, 12])
 
     print("Features: ", X_train.shape, X_train.dtype)
     print("Labels: ", y_train.shape, y_train.dtype)
-    print("Augmented features: ", X_augmented.shape, X_augmented.dtype)
-    print("Augmented labels: ", y_augmented.shape, y_augmented.dtype)
 
     print("- Storing the data as numpy files...")
-    np.save('../../data/processedData/X_train.npy', X_train)
-    np.save('../../data/processedData/y_train.npy', y_train)
-    np.save('../../data/processedData/X_augmented.npy', X_augmented)
-    np.save('../../data/processedData/y_augmented.npy', y_augmented)
-    np.save('../../data/processedData/X_test.npy', X_test)
+    np.save('../data/processedData/X_train.npy', X_train)
+    np.save('../data/processedData/y_train.npy', y_train)
+    np.save('../data/processedData/X_test.npy', X_test)
 
     print("- Done!")
-
-
-def performRotationAugmentation(X, y, angles=[12]):
-    """Performs rotation augmentation on the given data."""
-    X_new = np.empty(shape=(0, 96, 96), dtype=np.uint8)
-    y_new = np.empty(shape=(0, 30), dtype=np.float16)
-
-    # bring the labels in coordinate shape (x, y, 1)
-    c = np.array([np.stack((yi[0::2], yi[1::2]), axis=1) for yi in y])
-    c = np.pad(c, ((0, 0), (0, 0), (0, 1)), 'constant', constant_values=(1))
-
-    for angle in angles:
-        M = cv.getRotationMatrix2D((48, 48), angle, 1.0)
-        X_new = np.concatenate((X_new, [cv.warpAffine(x, M, (96, 96), flags=cv.INTER_CUBIC) for x in X]))
-        y_new = np.concatenate((y_new, [np.array([np.matmul(M, yi) for yi in ci], dtype=np.float16).flatten() for ci in c]))
-
-    return X_new.reshape(-1, 96, 96, 1), y_new
 
 
 def preprocessLabels(data):
@@ -112,7 +124,7 @@ def generateImages(X, y, folderName="sampleImages"):
 def printDatasetOverview():
     """Prints some basic information about the dataset."""
     print("\n> Printing dataset overview...")
-    data = pd.read_csv('../../data/rawData/trainingData.csv')
+    data = pd.read_csv('../data/rawData/trainingData.csv')
 
     print("Head:\n", data.head().T[0])
     print("Info:\n", data.info())
