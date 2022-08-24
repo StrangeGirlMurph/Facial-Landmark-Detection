@@ -27,13 +27,16 @@ To train the model set the parameters and execute `mainTraining.py`. To test a m
 + The video window doesn't have fixed aspect ratio... (opencv sucks...)
 
 ## Models
-+ V1 was trained in 43 min on a Ryzen 5 3600. (Epochs: 20, Batch size: 256, Validation split: 0.2)
-+ V2 was trained in 15 min on a Colab GPU. (Epochs: 100, Batch size: 256, Validation split: 0.2)
++ V1 was trained in 43 min on a Ryzen 5 3600. (Epochs: 20, Batch size: 256, Validation split: 0.2, #Images: 7049)
++ V2 was trained in 15 min on a Colab GPU. (Epochs: 100, Batch size: 256, Validation split: 0.2, #Images: 7049)
   + Results ⁘ loss: 4.3127 - masked_mean_absolute_error: 1.5840 - masked_accuracy: 0.5411
   + Specialties ⁘ masking the ouput for the missing values
-+ V3 was trained in 25 min on a Colab GPU. (Epochs: 100, Batch size: 256, Validation split: 0.2)
++ V3 was trained in 25 min on a Colab GPU. (Epochs: 100, Batch size: 256, Validation split: 0.2, #Images: 11329)
   + Results ⁘ loss: 3.7041 - masked_mean_absolute_error: 1.4212 - masked_accuracy: 0.6283
-  + Specialties ⁘ trained with rotation augmentated data
+  + Specialties ⁘ trained with rotation augmented data
++ V4 was trained in 80 min on a Colab GPU. (Epochs: 200, Batch size: 256, Validation split: 0.2, #Images: 17749)
+  + Results ⁘ loss: 5.3225 - masked_mean_absolute_error: 1.6917 - masked_accuracy: 0.6785
+  + Specialties ⁘ more augmentation (rotation, horizontal flip, crop & pad, perspective, brightness & contrast) + more epochs
 
 ## Notes
 + The "test dataset" doesn't include labels for the data.
