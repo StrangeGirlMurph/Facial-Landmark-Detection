@@ -39,6 +39,13 @@ To train the model set the parameters and execute `mainTraining.py`. To test a m
   + Specialties ⁘ more augmentation (rotation, horizontal flip, crop & pad, perspective, brightness & contrast) + more epochs
 
 ## Notes
++ look for labeled video
++ Murph
+  + Dataset
+  + Masking
+  + demo
+  + bug
+---
 + The "test dataset" doesn't include labels for the data.
 + Please don't train on a CPU. Don't be as dumb as I am. 🥲
 

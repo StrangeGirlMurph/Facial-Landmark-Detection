@@ -4,7 +4,7 @@ import cv2 as cv
 
 
 def listAvailabePorts():
-    """Test the first 10 ports and returns the available ports ones with their output size. """
+    """Test the first 10 ports and returns the available ports ones with their output size."""
     ports = {}
 
     for i in range(10):
