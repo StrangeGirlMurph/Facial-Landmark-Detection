@@ -5,7 +5,7 @@ from util.imageUtil import drawMaxSquareInImage, drawPointsInImage, drawSquareIn
 from util.videoUtil import selectPort, mirrorImage, prepareImageForPrediction
 
 
-def testOnDataset(model, data, trueValues=None, show=False, save=True, filename="testOutput.png"):
+def testOnDataset(model, data, trueValues=None, show=True, save=False, filename="testOutput.png"):
     """Tests the model on the data and shows result."""
     print("\n> Testing the model...")
 
