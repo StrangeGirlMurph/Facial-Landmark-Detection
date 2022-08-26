@@ -34,10 +34,10 @@ To train the model set the parameters and execute `mainTraining.py`. To test a m
 + V3 was trained in 25 min on a Colab GPU. (Epochs: 100, Batch size: 256, Validation split: 0.2, #Images: 11329)
   + Results ⁘ loss: 3.7041 - masked_mean_absolute_error: 1.4212 - masked_accuracy: 0.6283
   + Specialties ⁘ trained with rotation augmented data
-+ V4 was trained in 80 min on a Colab GPU. (Epochs: 200, Batch size: 256, Validation split: 0.2, #Images: 17749)
-  + Results ⁘ loss: 5.3225 - masked_mean_absolute_error: 1.6917 - masked_accuracy: 0.6785
++ V4 was trained in 40 min on a Colab GPU. (Epochs: 100, Batch size: 256, Validation split: 0.2, #Images: 17749)
+  + Results ⁘ loss: 4.2459 - masked_mean_absolute_error: 1.5622 - masked_accuracy: 0.6248
   + Specialties ⁘ more augmentation (rotation, horizontal flip, crop & pad, perspective, brightness & contrast) + more epochs
-
+  
 ## Notes
 + look for labeled video
 + Murph

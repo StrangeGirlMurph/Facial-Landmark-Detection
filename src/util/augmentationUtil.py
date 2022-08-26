@@ -23,7 +23,7 @@ def rotate(X, y, limit=45, p=1):
     return transformed['image'], transformed['keypoints']
 
 
-def cropAndPad(X, y, percent=(-0.05, 0.1), p=1):
+def cropAndPad(X, y, percent=(-0.05, 0.05), p=1):
     """Performs a cropping and padding augmentation."""
     transform = A.Compose(
         [A.CropAndPad(p=p, percent=percent, pad_mode=cv.BORDER_REPLICATE, sample_independently=False)],

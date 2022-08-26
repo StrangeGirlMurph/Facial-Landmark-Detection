@@ -73,6 +73,7 @@ def videoLoop(model, inp, windowName, mirrored):
     SCALE_STEP = 0.1  # step size of the window scale
     DEFAULT_PRED_WINDOW_SIZE = 384  # default size of the prediction window
     FEED_WIDTH, FEED_HEIGHT = int(cap.get(3)), int(cap.get(4))
+    print(f"- Feed size: {FEED_WIDTH}x{FEED_HEIGHT}")
     DEFAULT_WINDOW_WIDTH, DEFAULT_WINDOW_HEIGHT = FEED_WIDTH, FEED_HEIGHT
     if min(FEED_WIDTH, FEED_HEIGHT) >= 1080:
         DEFAULT_WINDOW_WIDTH, DEFAULT_WINDOW_HEIGHT = FEED_WIDTH//2, FEED_HEIGHT//2
@@ -94,7 +95,7 @@ def videoLoop(model, inp, windowName, mirrored):
             im = grayImage(frame)
 
             if frameCount % faceRecognitionFrames == 0:
-                faces = violaJones(im, faceCascade)
+                faces = violaJones(im, faceCascade, min(FEED_WIDTH, FEED_HEIGHT))
                 if len(faces) != 0:
                     faceFound = True
                     countdown = faceRecognitionCountdown

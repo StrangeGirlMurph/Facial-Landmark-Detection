@@ -73,9 +73,9 @@ def violaJonesGetFaceCascade():
     return cv.CascadeClassifier(os.path.join(cv2_base_dir, 'data/haarcascade_frontalface_default.xml'))
 
 
-def violaJones(im, face_cascade):
+def violaJones(im, face_cascade, minWandH=1080):
     """Performs Viola Jones detection and returns the bounding boxes of the faces."""
-    minSize = 288
+    minSize = 96 * round((minWandH//2)/96)
 
     faces = face_cascade.detectMultiScale(
         im,

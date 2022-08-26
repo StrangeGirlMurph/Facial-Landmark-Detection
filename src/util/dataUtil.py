@@ -7,13 +7,19 @@ import cv2 as cv
 import random
 
 
-def loadData(includeAugmented=True):
-    """ Loads the data and returns the training feautures/labels and test images. """
+def loadData(includeAugmented=True, percentageOfUncleanData=1):
+    """Loads the data and returns the training feautures/labels and test images. Also lets you choose how much of the unclean data you want to include."""
     print("\n> Loading the data...")
 
     X_train = np.load('../data/processedData/X_train.npy').astype(np.float32)
     y_train = np.load('../data/processedData/y_train.npy').astype(np.float32)
     X_test = np.load('../data/processedData/X_test.npy').astype(np.float32)
+
+    a, _ = np.where(y_train == -1)
+    a = np.unique(a)
+    i = np.random.choice(a, int(len(a)*percentageOfUncleanData), replace=False)
+    X_train = np.delete(X_train, i, axis=0)
+    y_train = np.delete(y_train, i, axis=0)
 
     if includeAugmented:
         X_augmented, y_augmented = loadAugmentedData()
@@ -109,9 +115,9 @@ def preprocessFeatures(data):
     return np.array(images.to_list(), dtype=np.uint8).reshape(-1, 96, 96, 1)
 
 
-def generateImages(X, y, folderName="sampleImages"):
+def generateImages(X, y, n=100, folderName="sampleImages"):
     """Generates png images from the raw data and stores them under "../data/{folderName}/*.png" (the folder in data already has to exist)."""
-    indices = [random.randint(0, len(X)-1) for p in range(0, 100)]
+    indices = [random.randint(0, len(X)-1) for p in range(0, n)]
     for i in indices:
         fig = plt.figure()
         plt.imshow(X[i], cmap="gray")
