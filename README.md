@@ -8,8 +8,8 @@ Install Git LFS with `git lfs install` and clone/pull the large files with `git 
 To train the model set the parameters and execute `mainTraining.py`. To test a model do the same with `mainTesting.py`
 
 __Changing the tensorflow log-level (powershell):__
-+ for that terminal: `$Env:TF_CPP_MIN_LOG_LEVEL = "3"`
-+ permanently: `Add-Content -Path $Profile.CurrentUserAllHosts -Value '$Env:TF_CPP_MIN_LOG_LEVEL = "3"'`
++ For that terminal instance: `$Env:TF_CPP_MIN_LOG_LEVEL = "3"`
++ Permanently: `Add-Content -Path $Profile.CurrentUserAllHosts -Value '$Env:TF_CPP_MIN_LOG_LEVEL = "3"'`
 
 ## Models
 + V1 was trained in 43 min on a Ryzen 5 3600. (Epochs: 20, Batch size: 256, Validation split: 0.2, #Images: 7049)
