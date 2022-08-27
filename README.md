@@ -4,6 +4,9 @@ A deep learning model to detect facial landmarks from images/videos. We use Kera
 _Disclaimer: Git LFS is used for this repository! The repo contains the dataset. Check [Usage](#usage) how to clone the repo and pull._
 
 ## Usage
+To test the model just follow the [Demo on Colab](https://colab.research.google.com/github/StrangeGirlMurph/Facial-Landmark-Detection/blob/master/demo.ipynb).
+
+Otherwise:  
 Install Git LFS with `git lfs install` and clone/pull the large files with `git lfs clone/pull`.  
 To train the model set the parameters and execute `mainTraining.py`. To test a model do the same with `mainTesting.py`
 
