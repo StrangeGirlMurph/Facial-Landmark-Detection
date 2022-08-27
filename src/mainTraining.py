@@ -3,7 +3,7 @@ from util.modelUtil import saveModel
 from modelStructure import defineModel
 from training import trainModel
 
-X_train, y_train, X_test = loadData(includeAugmented=True)
+X_train, y_train = loadData(includeAugmented=True)
 model = defineModel()
 
 trainModel(

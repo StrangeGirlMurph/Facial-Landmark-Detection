@@ -18,9 +18,9 @@ def testOnDataset(model, data, trueValues=None, show=True, save=False, filename=
     for im, x, y in zip(data, X, Y):
         axis = fig.add_subplot(int(np.ceil(l/5)), 5, i)
         axis.imshow(im, cmap='gray')
-        plt.scatter(x, y, c='b', marker='.')
+        plt.scatter(x, y, marker='s', s=8, c="dodgerblue", cmap="tab20")
         if trueValues is not None:
-            plt.scatter(trueValues[i-1][0::2], trueValues[i-1][1::2], c='r', marker='.')
+            plt.scatter(trueValues[i-1][0::2], trueValues[i-1][1::2], marker='s', s=8, c="lime", cmap="tab20")
         i += 1
 
     plt.tight_layout()

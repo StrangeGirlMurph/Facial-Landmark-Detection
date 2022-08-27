@@ -7,7 +7,7 @@ import cv2 as cv
 import random
 
 
-def loadData(includeAugmented=True, percentageOfUncleanData=1):
+def loadData(includeAugmented=True, percentageOfUncleanData=1, includeTestData=False):
     """Loads the data and returns the training feautures/labels and test images. Also lets you choose how much of the unclean data you want to include."""
     print("\n> Loading the data...")
 
@@ -17,15 +17,18 @@ def loadData(includeAugmented=True, percentageOfUncleanData=1):
 
     a, _ = np.where(y_train == -1)
     a = np.unique(a)
-    i = np.random.choice(a, int(len(a)*percentageOfUncleanData), replace=False)
+    i = np.random.choice(a, int(len(a)*(1-percentageOfUncleanData)), replace=False)
     X_train = np.delete(X_train, i, axis=0)
     y_train = np.delete(y_train, i, axis=0)
 
     if includeAugmented:
         X_augmented, y_augmented = loadAugmentedData()
-        return np.concatenate((X_train, X_augmented)), np.concatenate((y_train, y_augmented)), X_test
+        X_train = np.concatenate((X_train, X_augmented))
+        y_train = np.concatenate((y_train, y_augmented))
 
-    return X_train, y_train, X_test
+    if includeTestData:
+        return X_train, y_train, X_test
+    return X_train, y_train
 
 
 def loadAugmentedData():
@@ -113,18 +116,6 @@ def preprocessFeatures(data):
     """Extracts the images from the data and returns them in the correct form."""
     images = data['Image'].str.split(" ")
     return np.array(images.to_list(), dtype=np.uint8).reshape(-1, 96, 96, 1)
-
-
-def generateImages(X, y, n=100, folderName="sampleImages"):
-    """Generates png images from the raw data and stores them under "../data/{folderName}/*.png" (the folder in data already has to exist)."""
-    indices = [random.randint(0, len(X)-1) for p in range(0, n)]
-    for i in indices:
-        fig = plt.figure()
-        plt.imshow(X[i], cmap="gray")
-        plt.scatter(y[i][0::2], y[i][1::2], c='b', marker='.')
-        plt.tight_layout()
-        plt.savefig(f"../data/{folderName}/{i}.png", bbox_inches='tight')
-        plt.close(fig)
 
 
 def printDatasetOverview():
