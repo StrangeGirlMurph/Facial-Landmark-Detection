@@ -1,7 +1,9 @@
 # Deep Learning - Facial Landmark Detection
-A deep learning model to detect facial landmarks from images/videos. We use Keras/TensorFlow and this [Dataset on Kaggle](https://www.kaggle.com/c/facial-keypoints-detection/overview).
+A deep learning model to detect facial landmarks from images/videos.  
+We use Keras/TensorFlow and this [Dataset on Kaggle](https://www.kaggle.com/c/facial-keypoints-detection/overview).
 
-_Disclaimer: Git LFS is used for this repository! The repo contains the dataset. Check [Usage](#usage) how to clone the repo and pull._
+_Disclaimer: Git LFS is used for this repository! The repo contains the dataset.  
+Check [Usage](#usage) how to clone the repo and pull._
 
 ## Usage
 To test the model just follow the [Demo on Colab](https://colab.research.google.com/github/StrangeGirlMurph/Facial-Landmark-Detection/blob/master/demo.ipynb).
