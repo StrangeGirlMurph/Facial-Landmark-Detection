@@ -20,7 +20,7 @@ def plotImageWithLabels(im, y, name, legend=True, save=False, path="../../output
     fig.set_size_inches(10, 5)
     fig.set_dpi(100)
 
-    ax.imshow(im, cmap='gray', vmin=0, vmax=255)
+    ax.imshow(im.reshape(96, 96), cmap='gray', vmin=0, vmax=255)
     ax.set_title(name)
     ax.set_xlabel("x in px")
     ax.set_ylabel("y in px")
