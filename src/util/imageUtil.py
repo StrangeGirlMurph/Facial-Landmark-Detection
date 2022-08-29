@@ -39,9 +39,9 @@ def resizeImageToModelSize(im):
     return cv.resize(im, (96, 96), interpolation=cv.INTER_AREA).reshape(-1, 96, 96, 1)
 
 
-def mirrorImage(img):
+def mirrorImage(im):
     """Mirrors the image horizontaly and returns it."""
-    return cv.flip(img, 1)
+    return cv.flip(im, 1)
 
 
 def drawSquareInImage(im, x, y, s, rgb=(179, 255, 179), thickness=3):
@@ -73,9 +73,8 @@ def violaJonesGetFaceCascade():
     return cv.CascadeClassifier(os.path.join(cv2_base_dir, 'data/haarcascade_frontalface_default.xml'))
 
 
-def violaJones(im, face_cascade, minWandH=1080):
+def violaJones(im, face_cascade, minSize=1080):
     """Performs Viola Jones detection and returns the bounding boxes of the faces."""
-    minSize = 96 * round((minWandH//2)/96)
 
     faces = face_cascade.detectMultiScale(
         im,

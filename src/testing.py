@@ -31,11 +31,11 @@ def testOnDataset(model, data, trueValues=None, show=True, save=False, filename=
         plt.show()
 
 
-def testOnVideoFile(model, videoPath="..\data\media\Can You Watch This Without Smiling.mp4"):
-    """Tests the model on a video file."""
+def testOnVideoFile(model, videoPath="..\data\media\Can You Watch This Without Smiling.mp4", minSize=0.4):
+    """Tests the model on a video file. (Minsize is the minimum size of the face in the image in %)"""
     print("\n> Testing the model on a video...")
 
-    videoLoop(model, videoPath, "Video-Feed", False)
+    videoLoop(model, videoPath, "Video-Feed", False, minSize)
 
 
 def testOnWebcam(model):
@@ -46,7 +46,7 @@ def testOnWebcam(model):
     videoLoop(model, port, "Webcam-Feed", True)
 
 
-def videoLoop(model, inp, windowName, mirrored):
+def videoLoop(model, inp, windowName, mirrored, minSize=0.4):
     """Loops through the video and shows the predictions."""
     print("- Starting the video loop...")
     print("- You can close the window by pressing 'q'.")
@@ -95,7 +95,7 @@ def videoLoop(model, inp, windowName, mirrored):
             im = grayImage(frame)
 
             if frameCount % faceRecognitionFrames == 0:
-                faces = violaJones(im, faceCascade, min(FEED_WIDTH, FEED_HEIGHT))
+                faces = violaJones(im, faceCascade, int(min(FEED_WIDTH, FEED_HEIGHT)*minSize))
                 if len(faces) != 0:
                     faceFound = True
                     countdown = faceRecognitionCountdown

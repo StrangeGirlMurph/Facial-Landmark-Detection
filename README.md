@@ -27,3 +27,16 @@ __Changing the tensorflow log-level (powershell):__
 + V4 was trained in 40 min on a Colab GPU. (Epochs: 100, Batch size: 256, Validation split: 0.2, #Images: 17749)
   + Results ⁘ loss: 4.2459 - masked_mean_absolute_error: 1.5622 - masked_accuracy: 0.6248
   + Specialties ⁘ more augmentation (rotation, horizontal flip, crop & pad, perspective, brightness & contrast)
+
+## Reference
+### [Facial Keypoints Dataset](https://www.kaggle.com/c/facial-keypoints-detection/overview)
+The dataset for the kaggle competition from where we have the image dataset was graciously provided by Dr. Yoshua Bengio of the University of Montreal. James Petterson.
+
+### [300VW Dataset](https://ibug.doc.ic.ac.uk/resources/300-VW/)
+To test on labeled video data we are using the 300VW dataset:
+
+[1] J.Shen, S.Zafeiriou, G. S. Chrysos, J.Kossaifi, G.Tzimiropoulos, and M. Pantic. The first facial landmark tracking in-the-wild challenge: Benchmark and results. In IEEE International Conference on Computer Vision Workshops (ICCVW), 2015. IEEE, 2015.
+
+[2] G. S. Chrysos, E. Antonakos, S. Zafeiriou and P. Snape. Offline deformable face tracking in arbitrary videos. In IEEE International Conference on Computer Vision Workshops (ICCVW), 2015. IEEE, 2015,
+
+[3] G. Tzimiropoulos. Project-out cascaded regression with an application to face alignment. In Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition, pages 3659–3667, 2015. 
