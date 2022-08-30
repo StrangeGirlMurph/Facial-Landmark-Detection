@@ -44,7 +44,7 @@ def mirrorImage(im):
     return cv.flip(im, 1)
 
 
-def drawSquareInImage(im, x, y, s, rgb=(179, 255, 179), thickness=3):
+def drawSquareInImage(im, x, y, s, rgb=(179, 255, 179), thickness=2):
     """Draws a square in the image with the given coordinates (top left corner), width and height and returns it."""
     cv.rectangle(im, (x, y), (x+s, y+s), rgb, thickness)
     return im

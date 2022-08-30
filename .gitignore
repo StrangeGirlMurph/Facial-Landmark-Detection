@@ -1,5 +1,5 @@
-playground/
-src/testPlayground*
+src/testPlayground.ipynb
+data/raw300VW/*/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
