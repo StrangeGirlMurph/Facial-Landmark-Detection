@@ -2,15 +2,15 @@
 A deep learning model to detect facial landmarks from images/videos.  
 We use Keras/TensorFlow and this [Dataset on Kaggle](https://www.kaggle.com/c/facial-keypoints-detection/overview).
 
-_Disclaimer: Git LFS is used for this repository! The repo contains the dataset.  
-Check [Usage](#usage) how to clone the repo and pull._
+_Disclaimer: Git LFS is used for this repository! The repo contains the dataset itself.  
+Check [Usage](#usage) on how to clone the repo and pull._
 
 ## Usage
 To test the model just follow the [Demo on Colab](https://colab.research.google.com/github/StrangeGirlMurph/Facial-Landmark-Detection/blob/master/demo.ipynb).
 
 Otherwise:  
 Install Git LFS with `git lfs install` and clone/pull the large files with `git lfs clone/pull`.  
-To train the model set the parameters and execute `mainTraining.py`. To test a model do the same with `mainTesting.py`
+To train the model set the parameters and execute `mainTraining.py`. To test or evaluate a model do the same with `mainTesting.py`/`mainEvaluating.py`
 
 __Changing the tensorflow log-level (powershell):__
 + For that terminal instance: `$Env:TF_CPP_MIN_LOG_LEVEL = "3"`
@@ -28,12 +28,12 @@ __Changing the tensorflow log-level (powershell):__
   + Results ⁘ loss: 4.2459 - masked_mean_absolute_error: 1.5622 - masked_accuracy: 0.6248
   + Specialties ⁘ more augmentation (rotation, horizontal flip, crop & pad, perspective, brightness & contrast)
 
-## Reference
+## Dataset references
 ### [Facial Keypoints Dataset](https://www.kaggle.com/c/facial-keypoints-detection/overview)
-The dataset for the kaggle competition from where we have the image dataset was graciously provided by Dr. Yoshua Bengio of the University of Montreal. James Petterson.
+The dataset for the kaggle competition from where we have the image dataset was graciously provided by Dr. Yoshua Bengio of the University of Montreal.
 
 ### [300VW Dataset](https://ibug.doc.ic.ac.uk/resources/300-VW/)
-To test on labeled video data we are using the 300VW dataset:
+To test on labeled video data we are using the 300VW dataset.
 
 [1] J.Shen, S.Zafeiriou, G. S. Chrysos, J.Kossaifi, G.Tzimiropoulos, and M. Pantic. The first facial landmark tracking in-the-wild challenge: Benchmark and results. In IEEE International Conference on Computer Vision Workshops (ICCVW), 2015. IEEE, 2015.
 
