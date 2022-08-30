@@ -7,7 +7,7 @@ Check [Usage](#usage) on how to clone the repo and pull._
 <details>
 <summary>Example image</summary>
 <p align="center">
-<img src="https://user-images.githubusercontent.com/62220780/187404422-171031f3-aa08-4549-997e-db40dc642dda.png" width="800">
+<img src="https://user-images.githubusercontent.com/62220780/187404422-171031f3-aa08-4549-997e-db40dc642dda.png" width="600">
 </p>
 </details>
 
