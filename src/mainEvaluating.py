@@ -3,8 +3,10 @@ from util.modelUtil import loadModel
 from training import masked_accuracy, masked_mean_absolute_error, masked_mean_squared_error
 
 # Loading the data
-X_test, y_test = loadData(includeAugmented=True, percentageOfUncleanData=0)
+X_test, y_test = loadData(includeAugmented=True, percentageOfUncleanData=1)
 X_videoTest, y_videoTest = loadVideoTestData()
+print(len(X_test), len(X_videoTest))
+
 
 # Loading the model
 model = loadModel("../models/modelV4")
