@@ -12,7 +12,7 @@ Check [Usage](#usage) on how to clone the repo and pull._
 </details>
 
 <details>
-<summary>Example of a labeled image from the dataset</summary> <br>
+<summary>Example of a labeled images from the dataset</summary> <br>
 <p align="center">
 <img src="data/sampleImages/rawCleanImages/1315.png" width="600">
 </p>
