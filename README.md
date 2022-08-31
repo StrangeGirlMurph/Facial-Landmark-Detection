@@ -5,12 +5,21 @@ We use Keras/TensorFlow and this [Dataset on Kaggle](https://www.kaggle.com/c/fa
 _Disclaimer: Git LFS is used for this repository! The repo contains the dataset itself.  
 Check [Usage](#usage) on how to clone the repo and pull._
 <details>
-<summary>Example image</summary>
+<summary>Example prediction on webcam input</summary> <br>
 <p align="center">
 <img src="https://user-images.githubusercontent.com/62220780/187404422-171031f3-aa08-4549-997e-db40dc642dda.png" width="700">
 </p>
 </details>
 
+<details>
+<summary>Example of a labeled image from the dataset</summary> <br>
+<p align="center">
+<img src="data/sampleImages/rawCleanImages/1315.png" width="600">
+</p>
+<p align="center">
+<img src="data/sampleImages/rawUncleanImages/6915.png" width="600">
+</p>
+</details>
 
 ## Usage
 To test the model just follow the [Demo on Colab](https://colab.research.google.com/github/StrangeGirlMurph/Facial-Landmark-Detection/blob/master/demo.ipynb).

@@ -1,5 +1,6 @@
-import keras
+from training import masked_accuracy, masked_mean_squared_error, masked_mean_absolute_error
 import matplotlib.pyplot as plt
+import keras
 
 
 def saveModel(model, path="../../models/modelV1"):
@@ -11,13 +12,15 @@ def saveModel(model, path="../../models/modelV1"):
 
 def loadModel(modelPath):
     """ Loads the model from the given path."""
-    from training import masked_accuracy, masked_mean_squared_error, masked_mean_absolute_error
     print("\n> Loading the model...")
     try:
+        # Trys to load the model without specifying the custom loss and metrics
         return keras.models.load_model(modelPath)
     except:
         pass
+
     try:
+        # Trys to load the model with the custom loss and metrics specified
         return keras.models.load_model(
             modelPath,
             custom_objects={

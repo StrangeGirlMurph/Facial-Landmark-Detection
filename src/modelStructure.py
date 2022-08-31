@@ -3,7 +3,7 @@ from keras.layers import Convolution2D, BatchNormalization, Flatten, Dense, Drop
 
 
 def defineModel():
-    """ Creates a sequetial model, defines it's architecture and returns it. """
+    """Defines the architecture of a sequential convolutional neural netword and returns it."""
     print("\n> Defining the model...")
 
     # - convolutional neural network -
@@ -37,7 +37,6 @@ def defineModel():
     model.add(MaxPool2D(pool_size=(2, 2)))
 
     model.add(Convolution2D(128, (3, 3), padding='same', use_bias=False))
-    # model.add(BatchNormalization())
     model.add(LeakyReLU(alpha=0.1))
     model.add(BatchNormalization())
 

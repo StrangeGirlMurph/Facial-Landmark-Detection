@@ -5,13 +5,13 @@ from training import masked_accuracy, masked_mean_absolute_error, masked_mean_sq
 # Loading the data
 X_test, y_test = loadData(includeAugmented=True, percentageOfUncleanData=1)
 X_videoTest, y_videoTest = loadVideoTestData()
-print(len(X_test), len(X_videoTest))
-
+print("Number of images from the dataset:", len(X_test))
+print("Number of video frames:", len(X_videoTest))
 
 # Loading the model
 model = loadModel("../models/modelV4")
 
-# recompile the model to use the custom metrics
+# Recompile the model to use the custom metrics
 model.compile(
     loss=masked_mean_squared_error,
     metrics=[masked_mean_absolute_error, masked_accuracy],
@@ -19,5 +19,5 @@ model.compile(
 )
 
 # Evaluating the model on the test data (batches of 32)
-print(model.evaluate(x=X_test, y=y_test))
-print(model.evaluate(x=X_videoTest, y=y_videoTest))
+print("Results evaluation on the dataset:", model.evaluate(x=X_test, y=y_test))
+print("Results evaluation on video frames:", model.evaluate(x=X_videoTest, y=y_videoTest))

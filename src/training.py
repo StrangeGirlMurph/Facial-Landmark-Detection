@@ -3,7 +3,7 @@ import tensorflow as tf
 
 
 def trainModel(model, X_train, y_train, epochs=50, batch_size=256, validation_split=0.2, showHistory=True):
-    """Compiles and fits the model inplace plus saves it if specified under the given name. """
+    """Compiles and fits the model inplace."""
     print("\n> Training the model...")
     print(f"> Epochs: {epochs}, Batch size: {batch_size}, Validation split: {validation_split}")
 
@@ -27,26 +27,26 @@ def trainModel(model, X_train, y_train, epochs=50, batch_size=256, validation_sp
 
 
 def filter_mask(y_true):
-    """Returns a mask of the same shape as y_true, where each element is 1 if the corresponding element in y_true is -1, 0 otherwise."""
+    """Returns a mask of the same shape as y_true, where each element is 1 if the corresponding element in y_true is -1 and 0 otherwise."""
     return tf.math.logical_not(tf.math.equal(y_true, tf.constant(-1.)))
 
 
 def masked_mean_squared_error(y_true, y_pred):
-    """Returns the mean squared error between y_true and y_pred, ignoring -1 values."""
+    """Returns the mean squared error between y_true and y_pred and masking the values where y_true is -1."""
     mask = filter_mask(y_true)
     loss = tf.square(tf.abs(y_true - y_pred))
     return tf.reduce_mean(tf.ragged.boolean_mask(loss, mask), 1)
 
 
 def masked_mean_absolute_error(y_true, y_pred):
-    """Returns the mean absolute error between y_true and y_pred, ignoring -1 values."""
+    """Returns the mean absolute error between y_true and y_pred and masking the values where y_true is -1."""
     mask = filter_mask(y_true)
     loss = tf.abs(y_true - y_pred)
     return tf.reduce_mean(tf.ragged.boolean_mask(loss, mask), 1)
 
 
 def masked_accuracy(y_true, y_pred):
-    """Returns the accuracy between y_true and y_pred, ignoring -1 values."""
+    """Returns the overall accuracy with the accuracy between y_true and y_pred added and masking the values where y_true is -1."""
     mask = filter_mask(y_true)
     diff = tf.abs(y_true - y_pred)
     diff = tf.boolean_mask(diff, mask)

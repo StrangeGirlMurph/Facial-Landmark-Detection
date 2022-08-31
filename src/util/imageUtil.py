@@ -11,7 +11,7 @@ def showImagePyplot(image, x, y, cmap="gray"):
     plt.show()
 
 
-def mapPointsFromSquareToImage(x, y, c, r, s, w, h):
+def mapPointsFromSquareToImage(x, y, c, r, s):
     """Maps the points to fit image size and returns them. (The prediction points have their origin in the bottom left corner. But opencv uses the top left corner. Plus the function takes care of the scaling and offset.)"""
     return (x*s/96 + c, (y*s/96) + r)
 
@@ -35,7 +35,7 @@ def grayImage(im):
 
 
 def resizeImageToModelSize(im):
-    """Resizes the image to 96x96 and returns it."""
+    """Resizes the image to 96x96 and returns it in shape (-1,96,96,1)."""
     return cv.resize(im, (96, 96), interpolation=cv.INTER_AREA).reshape(-1, 96, 96, 1)
 
 
@@ -54,7 +54,7 @@ def drawMaxSquareInImage(im):
     """"Draws the maximum possible square in the center of the image and returns it."""
     h, w = im.shape[:2]
     ds = min(h, w)//2
-    h, w = h//2, w//2   # center
+    h, w = h//2, w//2
     cv.rectangle(im, (w-ds, h-ds), (w+ds, h+ds), (0, 0, 0), 1)
     return im
 
@@ -63,7 +63,7 @@ def squareImage(im):
     """Squares the image and returns it. (The size is determind by the minimum of width and height of the input.)"""
     h, w = im.shape[:2]
     ds = min(h, w)//2
-    h, w = h//2, w//2   # center
+    h, w = h//2, w//2
     return im[h-ds:h+ds, w-ds:w+ds]
 
 
@@ -73,15 +73,12 @@ def violaJonesGetFaceCascade():
     return cv.CascadeClassifier(os.path.join(cv2_base_dir, 'data/haarcascade_frontalface_default.xml'))
 
 
-def violaJones(im, face_cascade, minSize=1080):
+def violaJones(im, face_cascade, minFaceSize=300):
     """Performs Viola Jones detection and returns the bounding boxes of the faces."""
-
-    faces = face_cascade.detectMultiScale(
+    return face_cascade.detectMultiScale(
         im,
         scaleFactor=1.1,
         minNeighbors=5,
-        minSize=(minSize, minSize),
+        minSize=(minFaceSize, minFaceSize),
         flags=cv.CASCADE_SCALE_IMAGE
     )
-
-    return faces

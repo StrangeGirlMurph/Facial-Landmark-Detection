@@ -9,7 +9,8 @@ label_annotations = [
 ]
 
 
-def plotImageWithLabels(im, y, name, legend=True, save=False, path="../../output/defaultOutput.png"):
+def plotImageWithLabels(im, y, plotTitle, legend=True, save=False, path="../../output/defaultOutput.png"):
+    """Plots the given image with the given labels."""
     labels = np.array(label_annotations)[y[0::2] != -1]
 
     y = y[y != -1]
@@ -21,7 +22,7 @@ def plotImageWithLabels(im, y, name, legend=True, save=False, path="../../output
     fig.set_dpi(100)
 
     ax.imshow(im.reshape(96, 96), cmap='gray', vmin=0, vmax=255)
-    ax.set_title(name)
+    ax.set_title(plotTitle)
     ax.set_xlabel("x in px")
     ax.set_ylabel("y in px")
 

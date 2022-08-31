@@ -114,18 +114,18 @@ def processRawData():
 
 
 def preprocessLabels(data):
-    """Extracts the labels from the data and returns them in the correct form."""
+    """Extracts the labels from the dataframe and returns them in the correct form."""
     return data.drop('Image', axis=1).to_numpy(dtype=np.float16)
 
 
 def preprocessFeatures(data):
-    """Extracts the images from the data and returns them in the correct form."""
+    """Extracts the images from the dataframe and returns them in the correct form."""
     images = data['Image'].str.split(" ")
     return np.array(images.to_list(), dtype=np.uint8).reshape(-1, 96, 96, 1)
 
 
 def processRawTestVideos(videos, framesPerVideo=.1):
-    """Processes the given videos from the 300VW dataset and stores them in npy files."""
+    """Processes the given videos from the 300VW dataset and stores them in .npy files."""
     print("\n> Processing raw test videos...")
     X, y = np.empty((0, 96, 96, 1), dtype=np.uint8), np.empty((0, 30), dtype=np.float16)
 
@@ -142,7 +142,7 @@ def processRawTestVideos(videos, framesPerVideo=.1):
 
 
 def processRawTestVideo(num, frames=0.1):
-    """Processes the raw test video and stores it in numpy files for faster access. Frames is either a percentage or a total number of frames."""
+    """Processes the raw test video and returns the frames with their labels. The amount of frames is either a percentage or a total number of frames."""
     print(f"- Processing video number {num}...")
     cap = cv.VideoCapture(f"../data/raw300VW/{num:03d}/vid.avi")
     if not cap.isOpened():
@@ -178,6 +178,7 @@ def processRawTestVideo(num, frames=0.1):
 
             points = np.loadtxt(f"../data/raw300VW/{num:03d}/annot/{i:06d}.pts", comments=("version:", "n_points:", "{", "}")).astype(np.float16)
 
+            # Retrieving the 15 facial landmarks from the 68 landmarks
             y = np.empty((15, 2), dtype=np.float16)
             indices = [0, 0, 42, 45, 39, 36, 22, 26, 21, 17, 30, 54, 48, 0, 0]
             y = points[indices]
