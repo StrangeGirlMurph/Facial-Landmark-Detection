@@ -16,16 +16,16 @@ def testOnDataset(model, data, trueValues=None, show=True, save=False, filename=
 
     # To handle the rows and columns of the plot
     l = len(data)
-    i = 1
+    i = 0
 
     for im, x, y in zip(data, X, Y):
-        axis = fig.add_subplot(int(np.ceil(l/5)), 5, i)
+        axis = fig.add_subplot(int(np.ceil(l/5)), 5, i+1)
 
         axis.imshow(im.reshape(96, 96), cmap='gray')
         plt.scatter(x, y, marker='s', s=8, c="dodgerblue", cmap="tab20")
 
         if trueValues is not None:
-            plt.scatter(trueValues[i-1][0::2], trueValues[i-1][1::2], marker='s', s=8, c="lime", cmap="tab20")
+            plt.scatter(trueValues[i][0::2], trueValues[i][1::2], marker='s', s=8, c="lime", cmap="tab20")
 
         i += 1
 
