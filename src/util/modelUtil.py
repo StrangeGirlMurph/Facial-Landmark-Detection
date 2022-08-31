@@ -1,4 +1,3 @@
-from training import masked_accuracy, masked_mean_squared_error, masked_mean_absolute_error
 import matplotlib.pyplot as plt
 import keras
 
@@ -21,6 +20,7 @@ def loadModel(modelPath):
 
     try:
         # Trys to load the model with the custom loss and metrics specified
+        from training import masked_accuracy, masked_mean_squared_error, masked_mean_absolute_error
         return keras.models.load_model(
             modelPath,
             custom_objects={
