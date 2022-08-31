@@ -1,5 +1,5 @@
-from util.imageUtil import drawPointsInImage, drawSquareInImage, grayImage, mapPointsFromSquareToImage, resizeImageToModelSize, violaJones, violaJonesGetFaceCascade
-from util.videoUtil import selectPort, mirrorImage
+from util.imageUtil import drawPointsInImage, drawSquareInImage, grayImage, mapPointsFromSquareToImage, resizeImageToModelSize, violaJones, violaJonesGetFaceCascade, mirrorImage
+from util.videoUtil import selectPort
 import matplotlib.pyplot as plt
 import numpy as np
 import cv2 as cv
