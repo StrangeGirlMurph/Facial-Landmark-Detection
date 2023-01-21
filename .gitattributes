@@ -3,4 +3,6 @@
 models/** filter=lfs diff=lfs merge=lfs -text
 
 src/utilityInteraction.ipynb linguist-vendored
+src/colabTraining.ipynb linguist-vendored
+demo.ipynb linguist-vendored
 data.zip filter=lfs diff=lfs merge=lfs -text
