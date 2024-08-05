@@ -14,10 +14,10 @@ Check [Usage](#usage) on how to clone the repo and pull._
 <details>
 <summary>Example of a labeled images from the dataset</summary> <br>
 <p align="center">
-<img src="data/sampleImages/rawCleanImages/1315.png" width="600">
+<img src="images/rawCleanExample-1315.png" width="600">
 </p>
 <p align="center">
-<img src="data/sampleImages/rawUncleanImages/6915.png" width="600">
+<img src="images/rawUncleanExample-6915.png" width="600">
 </p>
 </details>
 
@@ -25,7 +25,7 @@ Check [Usage](#usage) on how to clone the repo and pull._
 To test the model just follow the [Demo on Colab](https://colab.research.google.com/github/StrangeGirlMurph/Facial-Landmark-Detection/blob/master/demo.ipynb).
 
 Otherwise:  
-Install Git LFS with `git lfs install` and clone/pull the large files with `git lfs clone/pull`.  
+Install Git LFS with `git lfs install` and clone/pull the large files with `git lfs clone/pull`. Unzip the data folder if you want to train a model or test on the dataset. 
 To train the model set the parameters and execute `mainTraining.py`. To test or evaluate a model do the same with `mainTesting.py`/`mainEvaluating.py`
 
 __Changing the tensorflow log-level (powershell):__
